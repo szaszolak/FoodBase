@@ -1,0 +1,18 @@
+connection: &connection
+  adapter: postgresql
+  encoding: unicode
+  pool: 5
+  username: foodBase
+  password: poli2015
+
+development:
+  <<: *connection
+  database: my_database_development
+
+test:
+  <<: *connection
+  database: my_database_test
+
+production:
+  <<: *connection
+  database: my_database_production

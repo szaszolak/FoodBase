@@ -1,0 +1,20 @@
+<%if notice %><p id="notice"><%= notice %></p><%end%>
+
+<table class='table'>
+<thead>
+  <tr>
+  <th>Categories</th>
+  <th> <%= link_to new_category_path,method: :get, class: "glyphicon" do%><span class="glyphicon glyphicon-plus" aria-hidden="true"><%end%> </th>
+  </tr>
+</thead>
+
+<tbody id='categories'>
+  
+    <%= render (@categories) %>
+
+</tbody>
+</table>
+
+<br>
+
+

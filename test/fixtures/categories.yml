@@ -1,0 +1,10 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+referenced:
+  name: referenced
+
+not_referenced:
+  name: notReferenced
+
+pieczywo:
+  name: pieczywo

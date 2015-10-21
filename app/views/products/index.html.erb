@@ -1,0 +1,27 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Products</h1>
+<div class="jumbotron">
+ <%= render "filters" %>
+</div>
+
+<table class='table'>
+  <thead>
+    <tr>
+      <th></th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Article url</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% if @products %>
+    <%= render(@products) %>
+  <%end%>
+
+  </tbody>
+</table>
+
+

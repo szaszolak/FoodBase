@@ -1,0 +1,18 @@
+// Place all the styles related to the Products controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+#recipe{
+ display: none;
+}
+.btn{
+	margin: 30px 0px 15px 0px;
+}
+table{
+	table-layout: fixed;
+	th,td:nth-child(even){
+		 border-right: 1px solid #ddd;
+	}
+}
+.glyphicon{
+	cursor: pointer;
+}

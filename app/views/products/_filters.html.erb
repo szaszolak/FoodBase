@@ -1,0 +1,5 @@
+<%= form_tag("/products", method: "get") do %>
+  <%= collection_select(nil,:category_id, Category.all, :id, :name,{prompt: "Category"}) %>
+  <%= collection_select(nil,:ingredient_id, Ingredient.all, :id, :name,{prompt: "Ingredient"}) %>
+  <%= submit_tag("Search") %>
+<% end %>

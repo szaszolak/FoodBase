@@ -1,0 +1,11 @@
+<tr>
+      <td>
+        <%= recipe.ingredient.try(:name) %>
+       </td>
+       <td>
+        <%= recipe.amount %>
+       </td>
+       <td>
+        <%= link_to product_recipe_path(@product,recipe), remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon" do%><span class="glyphicon glyphicon-remove" aria-hidden="true"> <%end%></span>
+       </td>
+</tr>

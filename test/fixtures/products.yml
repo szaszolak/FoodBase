@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+with_category:
+  description: MyText
+  article_url: MyString
+  category: referenced
+
+two:
+  description: MyText
+  article_url: MyString
+
+kajzerka:
+  description: pszenna bułka
+  article_url: http:\\www.superbula.pl
+  category: pieczywo

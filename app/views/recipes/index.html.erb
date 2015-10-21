@@ -1,0 +1,26 @@
+
+<div class="panel panel-default">
+  	<div class="panel-heading">
+    	<h3 class="panel-title"><%= @product.name %> Recipe</h3>
+	</div>
+
+  <div class="panel-body">
+	<table class='table'>
+<thead>
+  <tr>
+  <th>Recipes</th>
+  </tr>
+  <tr>
+    <%= render 'add_recipe_thead'%>
+  </tr>
+</thead>
+
+<tbody id='categories'>
+
+    <%= render (@recipes) %>
+
+</tbody>
+</table>
+
+   
+</div>

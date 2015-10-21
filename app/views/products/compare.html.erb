@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+<table class='table'>
+<thead>
+	<tr>
+	<% @competitors.each do |competitor| %>
+		<th colspan="2">
+			<%= competitor.name %> 
+		</th>
+	<% end%>
+	</tr>
+</thead>
+<tbody>
+		<tr>
+			<td colspan=<%=@competitors.length * 2 -1%> >Recipe</td><td><span id='recipe_toggler' class="glyphicon glyphicon-chevron-up" aria-hidden="true"></span></td>
+		</tr>
+	<% @maxReciepiesCnt.times do |i| %>
+	<tr class='recipe' >
+	<% @competitors.each do |competitor| %>
+				<% if competitor.recipes[i] %>
+					<td><%= competitor.recipes[i].ingredient.name %></td>
+					<td><%= competitor.recipes[i].amount %></td>
+				<%else%>
+					<td></td>
+					<td></td>
+				<%end%>
+		<%end%>
+	</tr>
+	<%end%>
+</tbody>
+</table>
+
+<% content_for :javascript_includes do %>
+  <%= javascript_include_tag "copmare_products.js" %>
+<% end %>
