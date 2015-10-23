@@ -14,7 +14,7 @@ class ProductsController < ApplicationController
 
   #GET /products/compare
   def compare
-    @competitors = Product.all
+    get_compared_products;
     get_max_recipies_count
   end
   # GET /products/new
@@ -78,7 +78,9 @@ class ProductsController < ApplicationController
     end
 
     def get_compared_products
-      @competitors = Product.find_all_by_id(params.permit(competitors_ids: []))
+     # byebug
+      ids = JSON.parse(params.require(:competitors_ids))
+      @competitors = Product.find(ids)
     end
 
     def get_max_recipies_count

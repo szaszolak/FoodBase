@@ -7,12 +7,14 @@
 .btn{
 	margin: 30px 0px 15px 0px;
 }
-table{
-	table-layout: fixed;
-	th,td:nth-child(even){
-		 border-right: 1px solid #ddd;
-	}
+.comparasion{
+		table-layout: fixed;
+		th,td:nth-child(even){
+			 border-right: 1px solid #ddd;
+		}
 }
+
+
 .glyphicon{
 	cursor: pointer;
 }

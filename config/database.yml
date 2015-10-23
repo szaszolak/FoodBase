@@ -5,12 +5,17 @@ connection: &connection
   username: foodBase
   password: poli2015
 
+connection: &sliqte
+  adapter: sqlite3
+  pool: 5
+  timeout: 5000
+
 development:
-  <<: *connection
+  <<: *sliqte
   database: my_database_development
 
 test:
-  <<: *connection
+  <<: *sliqte
   database: my_database_test
 
 production:
