@@ -2,7 +2,7 @@ require 'test_helper'
 
 class CategoriesControllerTest < ActionController::TestCase
   setup do
-    @category = categories(:one)
+    @category = categories(:pieczywo)
   end
 
   test "should get index" do
@@ -41,7 +41,7 @@ class CategoriesControllerTest < ActionController::TestCase
 
   test "should destroy category" do
     assert_difference('Category.count', -1) do
-      delete :destroy, id: @category
+      delete :destroy, id: categories(:not_referenced)
     end
 
     assert_redirected_to categories_path

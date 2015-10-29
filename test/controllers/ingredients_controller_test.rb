@@ -1,6 +1,10 @@
 require 'test_helper'
 
 class IngredientsControllerTest < ActionController::TestCase
+  setup do
+    @ingredient =  ingredients(:maka)
+  end
+
   test "should get index" do
     get :index
     assert_response :success
@@ -12,22 +16,27 @@ class IngredientsControllerTest < ActionController::TestCase
   end
 
   test "should get create" do
-    get :create
-    assert_response :success
+    assert_difference('Ingredient.count') do
+      post :create,  ingredient: { name: @ingredient.name }
+    end
+    assert_redirected_to ingredient_path(assigns(:ingredient))
   end
 
   test "should get destroy" do
-    get :destroy
-    assert_response :success
+    assert_difference('Ingredient.count',-1) do
+      delete :destroy, id: ingredients(:two)
+    end
+     assert_redirected_to ingredients_path
   end
 
+
   test "should get update" do
-    get :update
+    patch :update,id: @ingredient, ingredient: { name: @ingredient.name }
     assert_response :success
   end
 
   test "should get show" do
-    get :show
+    get :show, :id => @ingredient
     assert_response :success
   end
 
