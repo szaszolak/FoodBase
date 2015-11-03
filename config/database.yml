@@ -2,8 +2,8 @@ connection: &connection
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: foodBase
-  password: poli2015
+  username: postgres
+  password: postgres
 
 connection: &sliqte
   adapter: sqlite3
