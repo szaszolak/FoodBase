@@ -13,12 +13,13 @@
               <ul class="dropdown-menu">
                 <li><%= link_to "Produkty", products_path%></li>
                 <li><%= link_to "Składnki", ingredients_path%></li>
+                <li><%= link_to "Kategorie", categories_path%></li>
               </ul>
             </li>
             <li><%=link_to 'Tutorial', '/' %></li>
           </ul>
           <ul  class="nav navbar-nav navbar-right">
-            <li><a href="#">Logout!</a></li>
+            <li><%= link_to('Logout', destroy_user_session_path, :method => :delete) %> </li>
           </ul>
           
         </div>
