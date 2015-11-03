@@ -2,8 +2,8 @@ connection: &connection
   adapter: postgresql
   encoding: unicode
   pool: 5
-  username: postgres
-  password: postgres
+  username: foodBase
+  password: poli2015
 
 connection: &sliqte
   adapter: sqlite3
@@ -11,11 +11,11 @@ connection: &sliqte
   timeout: 5000
 
 development:
-  <<: *connection
+  <<: *sliqte
   database: my_database_development
 
 test:
-  <<: *connection
+  <<: *sliqte
   database: my_database_test
 
 production:
