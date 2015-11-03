@@ -1,11 +1,9 @@
 class RecipesController < ApplicationController
   before_action :set_up, only: [:index, :new, :create]
   def index
-
   end
 
   def new
-
   end
 
   def create
