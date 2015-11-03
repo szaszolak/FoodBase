@@ -11,11 +11,11 @@ connection: &sliqte
   timeout: 5000
 
 development:
-  <<: *sliqte
+  <<: *connection
   database: my_database_development
 
 test:
-  <<: *sliqte
+  <<: *connection
   database: my_database_test
 
 production:
