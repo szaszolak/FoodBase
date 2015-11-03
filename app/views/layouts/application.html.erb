@@ -10,9 +10,9 @@
 <body class='<%=controller.controller_name%>'>
 
     <div id="main-container" class="container-fluid">
-
-  	  <%= render "shared/navbar" %>
-
+      <%if user_signed_in? %>
+    	  <%= render "shared/navbar" %>
+      <%end%>
       <div class="row">
        
       
