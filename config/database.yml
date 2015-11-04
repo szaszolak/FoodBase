@@ -12,11 +12,11 @@ connection: &sliqte
 
 development:
   <<: *sliqte
-  database: my_database_development
+  database: development#my_database_development
 
 test:
   <<: *sliqte
-  database: my_database_test
+  database: test#my_database_test
 
 production:
   <<: *connection
