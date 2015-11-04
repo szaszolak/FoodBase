@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class IngredientsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
   setup do
     @ingredient =  ingredients(:maka)
+      setup_user
   end
 
   test "should get index" do

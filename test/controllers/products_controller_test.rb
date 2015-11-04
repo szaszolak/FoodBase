@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class ProductsControllerTest < ActionController::TestCase
+    include Devise::TestHelpers
   setup do
     @product = products(:kajzerka)
+   setup_user
   end
 
   test "should get index" do

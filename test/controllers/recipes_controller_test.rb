@@ -1,9 +1,11 @@
 require 'test_helper'
 
 class RecipesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
   setup do
     @product = products(:kajzerka)
     @recipe = recipes(:naBulke)
+    setup_user
   end
 
   test "should get index" do

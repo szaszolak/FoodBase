@@ -1,8 +1,10 @@
 require 'test_helper'
 
 class CategoriesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
   setup do
     @category = categories(:pieczywo)
+      setup_user
   end
 
   test "should get index" do
