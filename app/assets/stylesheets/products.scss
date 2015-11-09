@@ -4,9 +4,7 @@
 #recipe{
  display: none;
 }
-.btn{
-	margin: 30px 0px 15px 0px;
-}
+
 .comparasion{
 		table-layout: fixed;
 		th,td:nth-child(even){
@@ -14,7 +12,10 @@
 		}
 }
 
-
+.jumbotron{
+	padding-left: 25% !important;
+	padding-right:25% !important;
+}
 .glyphicon{
 	cursor: pointer;
 }

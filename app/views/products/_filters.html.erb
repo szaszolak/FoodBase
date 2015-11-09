@@ -1,5 +1,11 @@
-<%= form_tag("/products", method: "get") do %>
-  <%= collection_select(nil,:category_id, Category.all, :id, :name,{prompt: "Category"}) %>
-  <%= collection_select(nil,:ingredient_id, Ingredient.all, :id, :name,{prompt: "Ingredient"}) %>
-  <%= submit_tag("Search") %>
+<%= form_tag("/products", method: "get",class:"form-inline") do %>
+ <div class="form-group">
+  <%= label_tag("Kategoria:") %>
+  <%= collection_select(nil,:category_id, Category.all, :id, :name,{prompt: "Category"},class:"form-control") %> 
+  </div>
+   <div class="form-group">
+  <%= label_tag("Składnik:") %>
+  <%= collection_select(nil,:ingredient_id, Ingredient.all, :id, :name,{prompt: "Ingredient"},class:"form-control") %>
+  </div>
+  <%= submit_tag("Filtruj", class:"btn btn-default") %>
 <% end %>
