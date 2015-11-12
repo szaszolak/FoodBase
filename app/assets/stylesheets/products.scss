@@ -16,6 +16,14 @@
 	padding-left: 25% !important;
 	padding-right:25% !important;
 }
+tr{
+	cursor: pointer;
+}
+
+td.hover{
+	background-color: #b3ffb3;
+}
+
 .glyphicon{
 	cursor: pointer;
 }
