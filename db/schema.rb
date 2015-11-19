@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151112143032) do
+ActiveRecord::Schema.define(version: 20151119183753) do
+
+  create_table "additives", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "admins", force: :cascade do |t|
     t.string   "email",              default: "", null: false
@@ -40,6 +46,12 @@ ActiveRecord::Schema.define(version: 20151112143032) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "media", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.text     "description"
     t.string   "article_url"
@@ -59,6 +71,24 @@ ActiveRecord::Schema.define(version: 20151112143032) do
 
   add_index "recipes", ["ingredient_id"], name: "index_recipes_on_ingredient_id"
   add_index "recipes", ["product_id"], name: "index_recipes_on_product_id"
+
+  create_table "samples", force: :cascade do |t|
+    t.decimal  "amount"
+    t.decimal  "temperature"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  create_table "sensory_analyses", force: :cascade do |t|
+    t.decimal  "color_L"
+    t.decimal  "color_A"
+    t.decimal  "color_B"
+    t.decimal  "cutting_strength"
+    t.decimal  "fat"
+    t.decimal  "humidity"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

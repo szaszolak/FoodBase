@@ -1,0 +1,41 @@
+<%= form_for(@sensory_analysis) do |f| %>
+  <% if @sensory_analysis.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@sensory_analysis.errors.count, "error") %> prohibited this sensory_analysis from being saved:</h2>
+
+      <ul>
+      <% @sensory_analysis.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :color_L %><br>
+    <%= f.text_field :color_L %>
+  </div>
+  <div class="field">
+    <%= f.label :color_A %><br>
+    <%= f.text_field :color_A %>
+  </div>
+  <div class="field">
+    <%= f.label :color_B %><br>
+    <%= f.text_field :color_B %>
+  </div>
+  <div class="field">
+    <%= f.label :cutting_strength %><br>
+    <%= f.text_field :cutting_strength %>
+  </div>
+  <div class="field">
+    <%= f.label :fat %><br>
+    <%= f.text_field :fat %>
+  </div>
+  <div class="field">
+    <%= f.label :humidity %><br>
+    <%= f.text_field :humidity %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

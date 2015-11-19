@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  resources :additives
+  resources :sensory_analyses
+  resources :media
+  resources :samples
   devise_for :admins
   devise_for :users
   resources :ingredients

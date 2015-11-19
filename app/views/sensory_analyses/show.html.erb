@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Color l:</strong>
+  <%= @sensory_analysis.color_L %>
+</p>
+
+<p>
+  <strong>Color a:</strong>
+  <%= @sensory_analysis.color_A %>
+</p>
+
+<p>
+  <strong>Color b:</strong>
+  <%= @sensory_analysis.color_B %>
+</p>
+
+<p>
+  <strong>Cutting strength:</strong>
+  <%= @sensory_analysis.cutting_strength %>
+</p>
+
+<p>
+  <strong>Fat:</strong>
+  <%= @sensory_analysis.fat %>
+</p>
+
+<p>
+  <strong>Humidity:</strong>
+  <%= @sensory_analysis.humidity %>
+</p>
+
+<%= link_to 'Edit', edit_sensory_analysis_path(@sensory_analysis) %> |
+<%= link_to 'Back', sensory_analyses_path %>

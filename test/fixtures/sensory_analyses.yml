@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  color_L: 9.99
+  color_A: 9.99
+  color_B: 9.99
+  cutting_strength: 9.99
+  fat: 9.99
+  humidity: 9.99
+
+two:
+  color_L: 9.99
+  color_A: 9.99
+  color_B: 9.99
+  cutting_strength: 9.99
+  fat: 9.99
+  humidity: 9.99

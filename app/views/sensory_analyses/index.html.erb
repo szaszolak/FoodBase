@@ -1,0 +1,37 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Sensory Analyses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Color l</th>
+      <th>Color a</th>
+      <th>Color b</th>
+      <th>Cutting strength</th>
+      <th>Fat</th>
+      <th>Humidity</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sensory_analyses.each do |sensory_analysis| %>
+      <tr>
+        <td><%= sensory_analysis.color_L %></td>
+        <td><%= sensory_analysis.color_A %></td>
+        <td><%= sensory_analysis.color_B %></td>
+        <td><%= sensory_analysis.cutting_strength %></td>
+        <td><%= sensory_analysis.fat %></td>
+        <td><%= sensory_analysis.humidity %></td>
+        <td><%= link_to 'Show', sensory_analysis %></td>
+        <td><%= link_to 'Edit', edit_sensory_analysis_path(sensory_analysis) %></td>
+        <td><%= link_to 'Destroy', sensory_analysis, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Sensory analysis', new_sensory_analysis_path %>
