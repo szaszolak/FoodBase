@@ -25,6 +25,10 @@ class ProductsController < ApplicationController
   def edit
   end
 
+  def newImport
+  end
+
+
   # POST /products
   # POST /products.json
   def create
@@ -40,6 +44,8 @@ class ProductsController < ApplicationController
       end
     end
   end
+
+ 
 
   # PATCH/PUT /products/1
   # PATCH/PUT /products/1.json

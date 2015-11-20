@@ -1,0 +1,9 @@
+<h1>Importuj dane produktu z pliku xls</h1>
+  <%= render 'productError'%>
+  <%= render 'recipeError'%>
+  <%= render 'sampleError'%>
+  
+<%= form_tag import_path, multipart: true do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

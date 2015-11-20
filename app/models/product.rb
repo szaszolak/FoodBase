@@ -1,3 +1,4 @@
+
 class Product < ActiveRecord::Base
 	belongs_to :category
 	has_many :recipes, dependent: :destroy
@@ -9,4 +10,6 @@ class Product < ActiveRecord::Base
 
 	validates :description, :name, presence: true 
 	validates_associated :recipes
+
+
 end

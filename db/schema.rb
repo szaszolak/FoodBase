@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151119183753) do
+ActiveRecord::Schema.define(version: 20151120142638) do
 
   create_table "additives", force: :cascade do |t|
     t.string   "name"
@@ -77,7 +77,12 @@ ActiveRecord::Schema.define(version: 20151119183753) do
     t.decimal  "temperature"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.integer  "product_id"
+    t.integer  "additive_id"
   end
+
+  add_index "samples", ["additive_id"], name: "index_samples_on_additive_id"
+  add_index "samples", ["product_id"], name: "index_samples_on_product_id"
 
   create_table "sensory_analyses", force: :cascade do |t|
     t.decimal  "color_L"
@@ -88,7 +93,10 @@ ActiveRecord::Schema.define(version: 20151119183753) do
     t.decimal  "humidity"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
+    t.integer  "sample_id"
   end
+
+  add_index "sensory_analyses", ["sample_id"], name: "index_sensory_analyses_on_sample_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false

@@ -1,18 +1,23 @@
 Rails.application.routes.draw do
 
   resources :additives
-  resources :sensory_analyses
+
   resources :media
-  resources :samples
+ 
   devise_for :admins
   devise_for :users
   resources :ingredients
   resources :categories
+  get 'import'=>'import#new'
+  post 'import'=>'import#create'
   resources :products do
     collection do
-       post 'compare'
+       post :compare
      end
     resources :recipes
+    resources :samples do
+        resources :sensory_analyses
+    end
   end
 
  # get 'compare' => 'products#compare'
