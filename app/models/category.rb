@@ -4,6 +4,10 @@ class Category < ActiveRecord::Base
 	validates :name, presence: true
 
 	before_destroy :ensure_not_referenced_by_any_product
+	
+	before_create do
+    	self.name = self.name.downcase
+  	end
 
 	private
 

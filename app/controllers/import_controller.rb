@@ -22,7 +22,13 @@ class ImportController < ApplicationController
 
 	def import_product_xls(sheet)
 		@product = Product.new
-		@product.attributes  = Hash[[clear_attributes_names(Product.column_names),sheet.row(2)].transpose];
+		@category = Category.find_by_name(sheet.row(1)[1].downcase)
+		unless @category
+			@product.errors[:base]<<"Can not find following category: "+ sheet.row(1)[1]
+		 	raise ActiveRecord::Rollback
+		end 
+		@product.category = @category
+		@product.attributes  = Hash[[clear_attributes_names(Product.column_names),sheet.row(3)].transpose];
 		@product.save
 	end
 	

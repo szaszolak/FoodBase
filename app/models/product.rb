@@ -8,7 +8,7 @@ class Product < ActiveRecord::Base
 	has_many :additives,through: :samples
 	has_many :mediums,through: :samples
 
-	validates :description, :name, presence: true 
+	validates :description, :name,:category_id, presence: true 
 	validates_associated :recipes
 
 
