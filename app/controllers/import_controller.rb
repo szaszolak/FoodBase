@@ -5,35 +5,17 @@ class ImportController < ApplicationController
 
 	def create
     	spreadsheet = Roo::Spreadsheet.open(params[:file])
-   	
-   		import_product_xls(spreadsheet.sheet(0));
-   			if @product.errors.any?
-   				render :new and return
-   			end
-
-   			import_recipe_xls(spreadsheet.sheet(1));
-
-	   			if @recipe.errors.any?
-	   				render :new and return
-	   			end
-	  
-	   			count = spreadsheet.sheets.count
-		   		(2..count-1).each do |i|
-
-			   			import_samples_xls(spreadsheet.sheet(i))
-			   			if @sample.errors.any?
-			   				render :new and return
-			   			end
-		   			
+	   		ActiveRecord::Base.transaction do
+	   		import_product_xls(spreadsheet.sheet(0));	
+	   		import_recipe_xls(spreadsheet.sheet(1));
+		  		
+		   	count = spreadsheet.sheets.count
+			(2..count-1).each do |i|
+	  			import_samples_xls(spreadsheet.sheet(i))
+	   		end
+	   		redirect_to products_path and return
    		end
-   		#spreadsheet.each_with_pagename do |name, sheet|
- 		# header = sheet.row(1)
- 		# (2..sheet.last_row).each do |i|
-
- 		# end
-		#end
-		redirect_to products_path
-
+   		render :new and return
  	end
 
 	#private
@@ -58,7 +40,7 @@ class ImportController < ApplicationController
 				@recipe.save
 			else
 				@recipe.errors[:base]<<"Can not find following ingredient: "+ ingredients[i]
-				return
+				raise ActiveRecord::Rollback
 			end
 		end
 	end
@@ -83,6 +65,7 @@ class ImportController < ApplicationController
 			end
 		else
 			@sample.errors[:base]<<"Can not find following ingredient: "+ sheet.row(1)[0]
+			raise ActiveRecord::Rollback
 		end
 	end
 
