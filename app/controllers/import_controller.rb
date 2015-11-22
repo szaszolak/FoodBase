@@ -68,7 +68,7 @@ class ImportController < ApplicationController
 		@additive = nil
 		@sample = nil
 		@additive = Additive.find_by_name(sheet.row(1)[0])
-		
+		@analysis=nil
 		@sample = Sample.new
 		if @additive
 			@sample.product = @product
@@ -76,7 +76,7 @@ class ImportController < ApplicationController
 			@sample.amount = sheet.row(2)[0]
 			@sample.temperature = sheet.row(2)[1]
 			@sample.save
-			(4..sheet.count-1).each do |i|
+			(4..sheet.count).each do |i|
 				@analysis = @sample.sensory_analyses.build
 				@analysis.attributes = Hash[[clear_attributes_names(SensoryAnalysis.column_names),sheet.row(i)].transpose];
 				@analysis.save

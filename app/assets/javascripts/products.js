@@ -11,12 +11,12 @@ $('.glyphicon-plus').on("click",function(){
 		$('.competitors').children().append('<input type="hidden" value="'+JSON.stringify(competitors)+'" name="competitors_ids">')
 	}
 });
-var dataElements = $('tr[data-link]').children(':not(:nth-child(1),:nth-child(5),:nth-child(6))');
+var dataElements = $('tr[data-link]').children(':not(:nth-child(1),:nth-child(5),:nth-child(6),:nth-child(7))');
 dataElements.on("click",function(){
 	 window.location = $(this.parentElement).data('link');
 });
 var hoverHandler = function(){
-	$(this.parentElement).children(':not(:nth-child(1),:nth-child(5),:nth-child(6))').toggleClass('hover');
+	$(this.parentElement).children(':not(:nth-child(1),:nth-child(5),:nth-child(6),:nth-child(7))').toggleClass('hover');
 };
 dataElements.hover(hoverHandler,hoverHandler);
 };

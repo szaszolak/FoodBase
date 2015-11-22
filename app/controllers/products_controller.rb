@@ -9,6 +9,10 @@ class ProductsController < ApplicationController
   # GET /products/1
   # GET /products/1.json
   def show
+    respond_to do |format|
+      format.html
+      format.xls { response.headers['Content-Disposition'] = "attachment; filename=\"#{@product.name}.xls\""}
+    end
   end
 
   #GET /products/compare
