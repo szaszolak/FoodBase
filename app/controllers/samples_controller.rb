@@ -4,7 +4,7 @@ class SamplesController < ApplicationController
   # GET /samples
   # GET /samples.json
   def index
-    @samples = Sample.all
+    @samples = Sample.where(product_id:params[:product_id])
   end
 
   # GET /samples/1

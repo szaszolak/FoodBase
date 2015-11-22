@@ -24,9 +24,7 @@
         <td><%= sensory_analysis.cutting_strength %></td>
         <td><%= sensory_analysis.fat %></td>
         <td><%= sensory_analysis.humidity %></td>
-        <td><%= link_to 'Show', sensory_analysis %></td>
-        <td><%= link_to 'Edit', edit_sensory_analysis_path(sensory_analysis) %></td>
-        <td><%= link_to 'Destroy', sensory_analysis, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+       
       </tr>
     <% end %>
   </tbody>
@@ -34,4 +32,3 @@
 
 <br>
 
-<%= link_to 'New Sensory analysis', new_sensory_analysis_path %>

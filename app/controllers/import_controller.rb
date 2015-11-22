@@ -5,27 +5,26 @@ class ImportController < ApplicationController
 
 	def create
     	spreadsheet = Roo::Spreadsheet.open(params[:file])
-   		Product.transaction do
+   	
    		import_product_xls(spreadsheet.sheet(0));
    			if @product.errors.any?
    				render :new and return
    			end
-   			Recipe.transaction do
+
    			import_recipe_xls(spreadsheet.sheet(1));
 
 	   			if @recipe.errors.any?
 	   				render :new and return
 	   			end
+	  
+	   			count = spreadsheet.sheets.count
+		   		(2..count-1).each do |i|
 
-		   		(2..spreadsheet.sheets.count-1).each do |i|
-		   			Sample.transaction do
 			   			import_samples_xls(spreadsheet.sheet(i))
 			   			if @sample.errors.any?
 			   				render :new and return
 			   			end
-		   			end
-		   		end
-		   	end
+		   			
    		end
    		#spreadsheet.each_with_pagename do |name, sheet|
  		# header = sheet.row(1)
@@ -37,7 +36,7 @@ class ImportController < ApplicationController
 
  	end
 
-	private
+	#private
 
 	def import_product_xls(sheet)
 		@product = Product.new
@@ -65,10 +64,23 @@ class ImportController < ApplicationController
 	end
 
 	def import_samples_xls(sheet)
+		#byebug
+		@additive = nil
+		@sample = nil
 		@additive = Additive.find_by_name(sheet.row(1)[0])
-		headers = sheet.row(2)
+		
 		@sample = Sample.new
 		if @additive
+			@sample.product = @product
+			@sample.additive = @additive
+			@sample.amount = sheet.row(2)[0]
+			@sample.temperature = sheet.row(2)[1]
+			@sample.save
+			(4..sheet.count-1).each do |i|
+				@analysis = @sample.sensory_analyses.build
+				@analysis.attributes = Hash[[clear_attributes_names(SensoryAnalysis.column_names),sheet.row(i)].transpose];
+				@analysis.save
+			end
 		else
 			@sample.errors[:base]<<"Can not find following ingredient: "+ sheet.row(1)[0]
 		end
@@ -77,7 +89,7 @@ class ImportController < ApplicationController
 	def clear_attributes_names(names) #remove foreing keys, id and autofilled columns
 		result = [];
 		names.each do |name|
-			unless name.include?('id') or name.include?('created_at') or name.include?('updated_at') 
+			unless name.include?('_id') or name.include?('created_at') or name.include?('updated_at') or name == 'id'
 				result<<name
 			end
 		end
