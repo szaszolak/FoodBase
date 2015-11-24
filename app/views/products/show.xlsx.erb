@@ -1,0 +1,82 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40"
+  ss:Name="Test">
+  <Styles>
+   <Style ss:ID="b">
+      <Font ss:Bold="1"/>
+    </Style>
+  </Styles>
+  <Worksheet ss:Name="Produkt">
+    <Table>
+     <Row  ss:StyleID="b">
+        <Cell><Data ss:Type="String">Kategoria</Data></Cell> 
+        <Cell><Data ss:Type="String"><%=@product.category.name%></Data></Cell>
+      </Row>
+      <Row  ss:StyleID="b">
+        <Cell><Data ss:Type="String">Nazwa</Data></Cell>
+        <Cell><Data ss:Type="String">Opis</Data></Cell>
+        <Cell><Data ss:Type="String">Artykuł</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="String"><%= @product.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @product.description%></Data></Cell>
+        <Cell><Data ss:Type="String"><%= @product.article_url %></Data></Cell>
+      </Row>
+    </Table>
+  </Worksheet>
+  <Worksheet ss:Name="Receptura">
+    <Table>
+      <Row ss:StyleID="b">
+       <%@product.recipes.each do|recipe|%>
+        <Cell><Data ss:Type="String"><%=recipe.ingredient.name%></Data></Cell>
+        <%end%>
+      </Row>
+      <Row>
+       <%@product.recipes.each do|recipe|%>
+        <Cell><Data ss:Type="Number"><%=recipe.amount%></Data></Cell>
+        <%end%>
+      </Row>
+    </Table>
+  </Worksheet>
+  <%@product.samples.each do |sample|%>
+  <%if sample.additive %>
+    <Worksheet ss:Name="<%=sample.additive.name+" "+sample.amount.to_s+"%"%>">
+  <%else%>
+    <Worksheet ss:Name="wzorcowy">
+  <%end%>
+    <Table>
+      <Row  ss:StyleID="b">
+      <Cell><Data ss:Type="String"><%=sample.additive.name||'wzorcowy'%></Data></Cell>
+      <Cell><Data ss:Type="String">Temperatura</Data></Cell>
+      </Row>
+      <Row>
+        <Cell><Data ss:Type="Number"><%=sample.amount%></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=sample.temperature%></Data></Cell>
+      </Row>
+      <Row  ss:StyleID="b">
+        <Cell ><Data ss:Type="String">barwa L</Data></Cell>
+        <Cell><Data ss:Type="String">barwa A</Data></Cell>
+        <Cell><Data ss:Type="String">barwa B</Data></Cell>
+        <Cell><Data ss:Type="String">siła cięcia</Data></Cell>
+        <Cell><Data ss:Type="String">zawartość tłuszczu</Data></Cell>
+        <Cell><Data ss:Type="String">wilgotność</Data></Cell>
+      </Row>
+      <%sample.sensory_analyses.each do |analysis|%>
+      <Row>
+        <Cell><Data ss:Type="Number"><%=analysis.color_L%></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=analysis.color_A%></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=analysis.color_B%></Data></Cell>
+        <Cell><Data ss:Type="Number"><%=analysis.cutting_strength%></Data></Cell>
+        <Cell><Data ss:Type="Percent"><%=analysis.fat%></Data></Cell>
+        <Cell><Data ss:Type="Percent"><%=analysis.humidity%></Data></Cell>
+      </Row>
+      <%end%>
+    </Table>
+  </Worksheet>
+  <%end%>
+</Workbook>
+
