@@ -1,5 +1,6 @@
 
 class Product < ActiveRecord::Base
+	#acts_as_xlsx
 	belongs_to :category
 	has_many :recipes, dependent: :destroy
 	has_many :ingredients, through: :recipes
@@ -10,6 +11,4 @@ class Product < ActiveRecord::Base
 
 	validates :description, :name,:category_id, presence: true 
 	validates_associated :recipes
-
-
 end

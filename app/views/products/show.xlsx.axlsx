@@ -1,0 +1,30 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Produkt") do |sheet|
+	
+    sheet.add_row ['Kategoria',@product.category.name]
+    sheet.add_row ['Nazwa','Opis','Url artykułu']
+    sheet.add_row [@product.name,@product.description,@product.article_url]
+
+end
+
+wb.add_worksheet(name: "Receptura") do |sheet|
+	names = []
+	vals = []
+
+	@product.recipes.each do |rec|
+		names << rec.ingredient.name
+		vals << rec.amount
+	end
+	sheet.add_row names
+	sheet.add_row vals
+end
+@product.samples.each do |sample|
+	if sample.additive  
+		name = sample.additive.name + " " +sample.amount.to_s +"%" 
+	else 
+		name = 'wzorcowy'
+	end;
+	wb.add_worksheet(name: name ) do |sheet|
+		sheet.add_row ["TO DO:","Po modyfikacji schematu danych dopisać prezentacje z uzględnieniem wyboru mierzonych cech"]
+	end
+end

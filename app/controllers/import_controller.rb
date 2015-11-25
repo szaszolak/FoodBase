@@ -4,7 +4,9 @@ class ImportController < ApplicationController
 	end
 
 	def create
-    	spreadsheet = Roo::Spreadsheet.open(params[:file])
+		byebug
+
+    	spreadsheet = Roo::Spreadsheet.open(params[:file].path)
 	   		ActiveRecord::Base.transaction do
 	   		import_product_xls(spreadsheet.sheet(0));	
 	   		import_recipe_xls(spreadsheet.sheet(1));
