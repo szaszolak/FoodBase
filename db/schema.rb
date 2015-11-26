@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151122112328) do
+ActiveRecord::Schema.define(version: 20151125235842) do
 
   create_table "additives", force: :cascade do |t|
     t.string   "name"
@@ -52,6 +52,12 @@ ActiveRecord::Schema.define(version: 20151122112328) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "metrics", force: :cascade do |t|
+    t.string   "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "products", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
@@ -85,17 +91,15 @@ ActiveRecord::Schema.define(version: 20151122112328) do
   add_index "samples", ["product_id"], name: "index_samples_on_product_id"
 
   create_table "sensory_analyses", force: :cascade do |t|
-    t.decimal  "color_L"
-    t.decimal  "color_A"
-    t.decimal  "color_B"
-    t.decimal  "cutting_strength"
-    t.decimal  "fat"
-    t.decimal  "humidity"
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.integer  "sample_id"
+    t.integer  "metric_id"
+    t.integer  "repetition_id"
+    t.decimal  "value"
   end
 
+  add_index "sensory_analyses", ["metric_id"], name: "index_sensory_analyses_on_metric_id"
   add_index "sensory_analyses", ["sample_id"], name: "index_sensory_analyses_on_sample_id"
 
   create_table "users", force: :cascade do |t|
