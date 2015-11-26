@@ -1,15 +1,47 @@
-<p id="notice"><%= notice %></p>
 
+<div class="panel panel-default">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    	<p class="navbar-text"><%=@product.name.titleize%></p>
+    </div>
+	<ul class="nav navbar-nav">
+  	    <li><%= link_to ".xlsx", product_path(@product,format: "xlsx") %></li>
+      </ul>
+    
+      <ul class="nav navbar-nav navbar-right">
+		<li><%= link_to 'Edit', edit_product_path(@product) %></li>
+  	    <li><%= link_to 'Back', products_path %></li>
+      </ul>
+    </div>
+</nav>
+
+<div class="panel-body">
 <p>
-  <strong>Description:</strong>
-  <%= @product.description %>
+	<strong>Powtórzenia:</strong>
+	<%=@product.repetitions%>
 </p>
 
 <p>
-  <strong>Article url:</strong>
-  <%= @product.article_url %>
+	<strong>Mierzone cechy:</strong>
+	<ul>
+		<%@product.metrics.uniq{|m| m.id }.collect {|metric| metric.name}.each do|metric|%>
+			<li><%=metric%></li>
+		<%end%>
+	</ul>
 </p>
+<a href='<%=@product.article_url%>' rel="external" target="_blank"> <%=@product.article_url%></a>
+    <p>
+	  <strong>Opis:</strong>
+  		<%= @product.description %>
+	</p>
 
-<%= link_to 'Edit', edit_product_path(@product) %> |
-<%= link_to 'Back', products_path %>
-<%= link_to "Excel", product_path(@product,format: "xls") %>
+	
+</div>
+   
+
+</div>
+  <%= render partial: 'products/analyse_partials/recipe'%>
+<% @product.samples.each do |sample| %>
+  <%= render partial: 'products/analyse_partials/sample', locals: { sample: sample } %>
+<% end %>

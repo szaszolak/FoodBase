@@ -1,0 +1,13 @@
+<div class="panel panel-default">
+<div class="panel-heading">
+	<h3 class="panel-title">Receptura</h3>
+</div>
+<div class="panel-body">
+<strong>Składniki:</strong>
+<ul>
+	<%@product.recipes.each do |recipe|%>
+		<li><%=recipe.ingredient.name%>:	<%=recipe.amount%> g</li>
+	<%end%>
+</ul>
+</div>
+</div>
