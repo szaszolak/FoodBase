@@ -5,8 +5,9 @@ class ImportController < ApplicationController
 
 	def create
 
-
+		puts "Started Import"
     	spreadsheet = Roo::Spreadsheet.open(params[:file].path)
+    	pust "File opened"
 	   		ActiveRecord::Base.transaction do
 	   		import_product_xls(spreadsheet.sheet(0));	
 	   		import_recipe_xls(spreadsheet.sheet(1));
@@ -23,6 +24,7 @@ class ImportController < ApplicationController
 	#private
 
 	def import_product_xls(sheet)
+		puts "Started Import -> Product"
 		@product = Product.new
 		@category = Category.find_by_name(sheet.row(1)[1].downcase)
 		unless @category
@@ -35,7 +37,7 @@ class ImportController < ApplicationController
 	end
 	
 	def import_recipe_xls(sheet)
-	
+		puts "Started Import -> Recipe"
 		ingredients = sheet.row(1)
 		values = sheet.row(2)
 		(0..ingredients.count-1).each do |i|
@@ -54,7 +56,7 @@ class ImportController < ApplicationController
 	end
 
 	def import_samples_xls(sheet)
-		#byebug
+		puts "Started Import -> Sample"
 		@additive = nil
 		@sample = nil
 		@additive = Additive.find_by_name(sheet.row(1)[0])
@@ -86,7 +88,7 @@ class ImportController < ApplicationController
 	end
 
 	def import_sensory_analysis(column)
-		#byebug
+		puts "Started Import -> analysis"
 		@metric = Metric.find_by_name(column.first.downcase.strip)
 
 		if @metric
