@@ -100,7 +100,7 @@ class ImportController < ApplicationController
 				@analysis.save
 			end
 		else
-			@metric .errors[:base]<<"Can not find following metric: "+ column.first.downcase
+			@sample.errors[:base]<<"Can not find following metric: "+ column.first.downcase
 			raise ActiveRecord::Rollback
 		end
 
