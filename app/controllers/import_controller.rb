@@ -4,7 +4,7 @@ class ImportController < ApplicationController
 	end
 
 	def create
-		byebug
+
 
     	spreadsheet = Roo::Spreadsheet.open(params[:file].path)
 	   		ActiveRecord::Base.transaction do
@@ -66,10 +66,8 @@ class ImportController < ApplicationController
 			@sample.amount = sheet.row(2)[0]
 			@sample.temperature = sheet.row(2)[1]
 			@sample.save
-			(4..sheet.count).each do |i|
-				@analysis = @sample.sensory_analyses.build
-				@analysis.attributes = Hash[[clear_attributes_names(SensoryAnalysis.column_names),sheet.row(i)].transpose];
-				@analysis.save
+			(1..sheet.first.count).each do |i|  #mały hack wynikający ze struktury danych zwaracanych przez roo => zwraca tablicę tablic zawierających poszczególne wiersze.
+				import_sensory_analysis(sheet.column(i)[2,sheet.column(i).count])
 			end
 		else
 			@sample.errors[:base]<<"Can not find following ingredient: "+ sheet.row(1)[0]
@@ -85,5 +83,24 @@ class ImportController < ApplicationController
 			end
 		end
 		result
+	end
+
+	def import_sensory_analysis(column)
+		#byebug
+		@metric = Metric.find_by_name(column.first.downcase.strip)
+
+		if @metric
+			(1..column.count-1).each do |i|
+				@analysis = @sample.sensory_analyses.build
+				@analysis.repetition_id = i;
+				@analysis.metric = @metric;
+				@analysis.value = column[i];
+				@analysis.save
+			end
+		else
+			@metric .errors[:base]<<"Can not find following metric: "+ column.first.downcase
+			raise ActiveRecord::Rollback
+		end
+
 	end
 end

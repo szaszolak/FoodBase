@@ -2,8 +2,8 @@ wb = xlsx_package.workbook
 wb.add_worksheet(name: "Produkt") do |sheet|
 	
     sheet.add_row ['Kategoria',@product.category.name]
-    sheet.add_row ['Nazwa','Opis','Url artykułu']
-    sheet.add_row [@product.name,@product.description,@product.article_url]
+    sheet.add_row ['Nazwa','Opis','Url artykułu','Powtórzenia']
+    sheet.add_row [@product.name,@product.description,@product.article_url,@product.repetitions]
 
 end
 
@@ -19,12 +19,20 @@ wb.add_worksheet(name: "Receptura") do |sheet|
 	sheet.add_row vals
 end
 @product.samples.each do |sample|
-	if sample.additive  
-		name = sample.additive.name + " " +sample.amount.to_s +"%" 
+	if sample.additive
+		additive = [sample.additive.name,sample.amount]  
+		name = sample.additive.name + " " +sample.amount.to_s;
 	else 
 		name = 'wzorcowy'
+		additive = [name,"-"]  
 	end;
 	wb.add_worksheet(name: name ) do |sheet|
-		sheet.add_row ["TO DO:","Po modyfikacji schematu danych dopisać prezentacje z uzględnieniem wyboru mierzonych cech"]
+		sheet.add_row [additive[0],"Temperatura"]
+		sheet.add_row [additive[1],sample.temperature]
+		sheet.add_row sample.metrics.uniq{|m| m.id }.collect {|metric| metric.name}
+		(1..@product.repetitions).each do |i|
+			sheet.add_row sample.sensory_analyses.where(repetition_id: i).map{|analysis|analysis.value.to_f}
+		end
 	end
+
 end
