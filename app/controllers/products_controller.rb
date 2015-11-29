@@ -4,6 +4,10 @@ class ProductsController < ApplicationController
   # GET /products.json
   def index
     apply_filters
+    respond_to do |format|
+      format.html
+      format.js{}
+    end
   end
 
   # GET /products/1
