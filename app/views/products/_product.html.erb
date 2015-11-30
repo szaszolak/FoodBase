@@ -6,7 +6,7 @@
         <td ><%= product.article_url %></td>
         <td ><%= I18n.l product.created_at, :format => :short %></td>
         <td ><%= I18n.l product.updated_at, :format => :short %></td>
-        <td ><%= link_to ".xls", product_path(product,format: "xls") %></td>
+        <!--<td ><%= link_to ".xls", product_path(product,format: "xls") %></td> remove download option for xls-->
         <td ><%= link_to "xlsx", product_path(product,format: "xlsx") %></td>
         <td><span id=<%= product.id.to_s() +"#" +  product.name %> class='glyphicon glyphicon-edit'/><%= link_to 'Edit', edit_product_path(product) %></td>
         <td><%= link_to 'Destroy', product, method: :delete, data: { confirm: 'Are you sure?' } %></td> 

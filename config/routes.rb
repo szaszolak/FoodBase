@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   resources :ingredients
   resources :categories
   get 'import'=>'import#new'
+  get 'import/:id'=>'import#edit'
+  put 'import/:id'=>'import#update'
   post 'import'=>'import#create'
   resources :products do
     collection do

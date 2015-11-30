@@ -17,12 +17,12 @@
        
       
             <div id="sidebar" class="col-sm-2">
-            <% if lookup_context.find_all(controller.controller_name+"/_side").any? %>
+            <% if lookup_context.find_all(controller.controller_name+"/_side_"+action_name).any? %>
              <!-- sidebar content -->
               <div class="panel panel-default">
                 <div class="panel-body">
                   
-                    <%= render 'side' %>
+                    <%= render "side_"+action_name %>
                  
                 </div>
               </div>

@@ -2,10 +2,10 @@ require 'roo'
 class ImportController < ApplicationController
 	def new
 	end
-
+	def edit
+		@product = Product.find(params[:id])
+	end
 	def create
-
-
     	spreadsheet = Roo::Spreadsheet.open(params[:file].path)
 
 	   		ActiveRecord::Base.transaction do
@@ -22,10 +22,27 @@ class ImportController < ApplicationController
  	end
 
 	#private
+	def update
+		product = Product.find(params[:id])
+		product.recipes.destroy
+		product.samples.destroy
+		spreadsheet = Roo::Spreadsheet.open(params[:file].path)
 
-	def import_product_xls(sheet)
+	   		ActiveRecord::Base.transaction do
+	   		import_product_xls(spreadsheet.sheet(0),product);	
+	   		import_recipe_xls(spreadsheet.sheet(1));
+		  		
+		   	count = spreadsheet.sheets.count
+			(2..count-1).each do |i|
+	  			import_samples_xls(spreadsheet.sheet(i))
+	   		end
+	   		redirect_to products_path and return
+   		end
+   		render :new and return
+	end
+	def import_product_xls(sheet,product)
 
-		@product = Product.new
+		@product = product||Product.new
 		@category = Category.find_by_name(sheet.row(1)[1].downcase)
 		unless @category
 			@product.errors[:base]<<"Can not find following category: "+ sheet.row(1)[1]

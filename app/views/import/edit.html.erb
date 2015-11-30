@@ -1,0 +1,10 @@
+<h1>Uaktualni dane produktu: "<%=@product.name%>" z pliku xls</h1></br>
+  <%= render 'productError'%>
+  <%= render 'recipeError'%>
+  <%= render 'sampleError'%>
+  <%= render 'metricError'%>
+ <strong>Poprzednie dane zostaną w całości zastąpione poprzez dostarczone ze wskazanego pliku!</strong></br>
+<%= form_tag '/import/'+@product.id.to_s, multipart: true,:method => 'put'  do %>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import", data: { confirm: 'Poprzednie dane zostaną w całości zastąpione poprzez dostarczone ze wskazanego pliku!' }  %>
+<% end %>
