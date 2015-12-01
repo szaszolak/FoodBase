@@ -1,7 +1,15 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-	<h3 class="panel-title">Receptura</h3>
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    	<p class="navbar-text">Receptura</p>
+    </div>
+
+      <ul class="nav navbar-nav navbar-right">
+		<li><%= link_to 'Edit', product_recipes_path(@product) %></li>
+      </ul>
+    </div>
+</nav>
 <div class="panel-body">
 <strong>Składniki:</strong>
 <ul>

@@ -24,8 +24,9 @@ class ImportController < ApplicationController
 	#private
 	def update
 		product = Product.find(params[:id])
-		product.recipes.destroy
-		product.samples.destroy
+		byebug
+		product.recipes.destroy_all
+		product.samples.destroy_all
 		spreadsheet = Roo::Spreadsheet.open(params[:file].path)
 
 	   		ActiveRecord::Base.transaction do
@@ -40,7 +41,7 @@ class ImportController < ApplicationController
    		end
    		render :new and return
 	end
-	def import_product_xls(sheet,product)
+	def import_product_xls(sheet,product=nil)
 
 		@product = product||Product.new
 		@category = Category.find_by_name(sheet.row(1)[1].downcase)
