@@ -24,12 +24,12 @@ class ImportController < ApplicationController
 	#private
 	def update
 		product = Product.find(params[:id])
-		byebug
-		product.recipes.destroy_all
-		product.samples.destroy_all
+
 		spreadsheet = Roo::Spreadsheet.open(params[:file].path)
 
 	   		ActiveRecord::Base.transaction do
+	   		product.recipes.destroy_all
+			product.samples.destroy_all
 	   		import_product_xls(spreadsheet.sheet(0),product);	
 	   		import_recipe_xls(spreadsheet.sheet(1));
 		  		
@@ -50,7 +50,12 @@ class ImportController < ApplicationController
 		 	raise ActiveRecord::Rollback
 		end 
 		@product.category = @category
-		@product.attributes  = Hash[[clear_attributes_names(Product.column_names),sheet.row(3)].transpose];
+		#@product.attributes  = Hash[[clear_attributes_names(Product.column_names),sheet.row(3)].transpose];
+		@product.name =sheet.row(3)[0]
+		@product.description =sheet.row(3)[1]
+		@product.article_url =sheet.row(3)[2]
+		@product.repetitions = sheet.row(3)[3]
+		@product.samples_count = sheet.row(3)[4]
 		@product.save
 	end
 	
