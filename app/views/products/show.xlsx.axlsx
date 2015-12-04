@@ -2,8 +2,8 @@ wb = xlsx_package.workbook
 wb.add_worksheet(name: "Produkt") do |sheet|
 	
     sheet.add_row ['Kategoria',@product.category.name]
-    sheet.add_row ['Nazwa','Opis','Url artykułu','Powtórzenia']
-    sheet.add_row [@product.name,@product.description,@product.article_url,@product.repetitions]
+    sheet.add_row ['Nazwa','Opis','Url artykułu','Powtórzenia','Próbki']
+    sheet.add_row [@product.name,@product.description,@product.article_url,@product.repetitions,@product.samples_count]
 
 end
 
