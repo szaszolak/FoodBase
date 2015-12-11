@@ -34,4 +34,24 @@ td.hover{
 	thead{
 			font-size: 12px !important;
 		}
+
+}
+
+
+
+.chart rect {
+  fill: steelblue;
+}
+
+.chart text {
+  fill: black;
+  font: sans-serif;
+  text-anchor: middle;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
 }

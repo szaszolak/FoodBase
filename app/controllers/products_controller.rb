@@ -17,6 +17,7 @@ class ProductsController < ApplicationController
       format.html
       format.xls { response.headers['Content-Disposition'] = "attachment; filename=\"#{@product.name}.xls\""}
       format.xlsx
+      format.json
     end
   end
 

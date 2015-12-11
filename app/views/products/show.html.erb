@@ -1,5 +1,6 @@
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
-<div class="panel panel-default">
+<div product-id="<%=params[:id]%>"class="panel panel-default">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -47,3 +48,4 @@
 <% @product.samples.each do |sample| %>
   <%= render partial: 'products/analyse_partials/sample', locals: { sample: sample } %>
 <% end %>
+<% javascript_include_tag 'charts/bar.js' %>
