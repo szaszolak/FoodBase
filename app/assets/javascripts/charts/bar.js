@@ -4,7 +4,7 @@ $(window).on('load',
 				var width = $('#content').width();
 				width = width>512?512:width;
 				var height = width/2;
-				var margin = {top: 20, right: 30, bottom: 30, left: 40},
+				var margin = {top: 30, right: 30, bottom: 30, left: 40},
    				width = width - margin.left - margin.right,
     			height = height - margin.top - margin.bottom;
 
@@ -37,7 +37,8 @@ $(window).on('load',
 
 						var yAxis = d3.svg.axis()
 				  		  .scale(y)
-				   		  .orient("left");
+				   		  .orient("left")
+				   		  .outerTickSize(0);
 							draw(metric.samples,chart,metric.name,x,y,xAxis,yAxis);
 							i++;
 						})	
@@ -72,7 +73,7 @@ function draw(data,chart,title,x,y,xAxis,yAxis){
 
       chart.append("text")
         .attr("x", (width / 2))             
-        .attr("y", 0 - (margin.top / 2))
+        .attr("y", 5 - (margin.top / 2))
         .attr("text-anchor", "middle")  
         .style("font-size", "16px") 
         .style("text-decoration", "underline")  
@@ -82,7 +83,9 @@ function draw(data,chart,title,x,y,xAxis,yAxis){
       .attr("x", x.rangeBand() / 2)
       .attr("y", function(d) { return y(d.value) + 6; })
       .attr("dy", ".75em")
-      .text(function(d) { return d.value; });
+      .text(function(d) {
+       return d.value;
+        });
 }
 
 
@@ -93,6 +96,6 @@ function calculateOuterPadding(barsCount,width,padding){
 
 
 function type(d) {
-  d.value =0+d.value; // coerce to number
+  d.value =parseFloat(d.value); // coerce to number
 }
 });
