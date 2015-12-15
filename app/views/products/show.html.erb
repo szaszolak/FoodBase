@@ -1,5 +1,5 @@
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<%= javascript_include_tag "charts/bar.js", "data-turbolinks-track" => true %>
+
 <div product-id="<%=params[:id]%>"class="panel panel-default">
 <nav class="navbar navbar-default">
   <div class="container-fluid">
@@ -45,8 +45,11 @@
 
 </div>
   <%= render partial: 'products/analyse_partials/recipe'%>
+<%if @product.samples_count%>  
 <% @product.samples.each do |sample| %>
   <%= render partial: 'products/analyse_partials/sample', locals: { sample: sample } %>
 <% end %>
-<% javascript_include_tag 'charts/bar.js' %>
-
+<%end%>
+<%if(@product.samples_count && @product.repetitions && @product.samples_count > 0 && @product.repetitions > 0)%>
+<%= javascript_include_tag "charts/bar.js", "data-turbolinks-track" => true %>
+<%end%>
