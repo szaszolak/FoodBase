@@ -1,7 +1,11 @@
 $(window).on('load',
 	function() {
+
 				//setup canvas for chart
 				var width = $('#content').width();
+				
+				$('#content').append("<div class=\"checkbox\"><label><input id=\"error-bars-switch\" data-toggle=\"toggle\" type=\"checkbox\" data-on=\"Pokaż\" data-off=\"Ukryj\">Odchylenie standardowe</label></div><link href=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css\" rel=\"stylesheet\"><script src=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js\"></script>");
+				
 				width = width>512?512:width;
 				var height = width/2;
 				var margin = {top: 30, right: 30, bottom: 30, left: 40},
@@ -42,14 +46,16 @@ $(window).on('load',
 							draw(metric.samples,chart,metric.name,x,y,xAxis,yAxis);
 							i++;
 						})	
-					
+						 $('#error-bars-switch').on('change',  function(e) {
+							toggleErrorBars();
+    						});
 })
 		
 
 function draw(data,chart,title,x,y,xAxis,yAxis){
 		_.each(data,type);
 	  x.domain(data.map(function(d) { return d.name; }))
- 	  y.domain([0, d3.max(data, function(d) { return d.value; })])
+ 	  y.domain([0, d3.max(data, function(d) { return d.value + d.deviation; })])
 					
 
   chart.append("g")
@@ -71,6 +77,29 @@ function draw(data,chart,title,x,y,xAxis,yAxis){
       .attr("height", function(d) { return height - y(d.value); })
       .attr("width", x.rangeBand());
 
+var lineFunction = d3.svg.line()
+                        .x(function(ele) { return ele.x; })
+                         .y(function(ele) { return ele.y; })
+                         .interpolate("linear");
+
+    var errorBar = bar.data(data).append("path")
+    							.attr("d",function(d){return lineFunction([{"x": 2*x.rangeBand()/6,"y":y(d.value - d.deviation)},{"x": 4*x.rangeBand()/6,"y":y(d.value - d.deviation)},
+    							{"x": x.rangeBand()/2,"y":y(d.value - d.deviation)},{"x": x.rangeBand()/2,"y":y(d.value + d.deviation)}		
+    							,{"x": 2*x.rangeBand()/6,"y":y(d.value + d.deviation)},{"x": 4*x.rangeBand()/6,"y":y(d.value + d.deviation)}]
+    						)})
+    					 .attr("stroke-width", 2)
+                         .attr("stroke", "red")
+                         .attr("fill", "none")
+                         //.attr("display","none")
+                         .attr("class","error-bar");
+                         /*.append("line")
+                          .attr("x1", x.rangeBand()/2)
+                          .attr("y1", function(d) { return y(d.value - d.deviation); } )
+                         .attr("x2",  x.rangeBand()/2)
+                         .attr("y2",  function(d) { return y(d.value + d.deviation); })  
+                         .attr("stroke-width", 2)
+                         .attr("stroke", "red");
+*/
       chart.append("text")
         .attr("x", (width / 2))             
         .attr("y", 5 - (margin.top / 2))
@@ -83,12 +112,13 @@ function draw(data,chart,title,x,y,xAxis,yAxis){
       .attr("x", x.rangeBand() / 2)
       .attr("y", function(d) { return y(d.value) + 6; })
       .attr("dy", ".75em")
+      .attr("fill","white")
+      .attr("font-weight","bold")
       .text(function(d) {
-       return d.value;
+       return d.value.toFixed(2);
         });
+
 }
-
-
 
 function calculateOuterPadding(barsCount,width,padding){
 	return (width - (barsCount+padding)*barsCount-padding)/2; 
@@ -97,5 +127,13 @@ function calculateOuterPadding(barsCount,width,padding){
 
 function type(d) {
   d.value =parseFloat(d.value); // coerce to number
+  d.deviation = parseFloat(d.deviation);
+}
+
+function toggleErrorBars(){
+	if($('.error-bar').css('display') != 'none')
+		$('.error-bar').css('display','none');
+	else
+		$('.error-bar').css('display','inline');
 }
 });
