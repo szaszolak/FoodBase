@@ -18,12 +18,14 @@
 			</tr>
 		</thead>
 		<tbody>
+		<%if sample.product.repetitions && sample.product.repetitions >=1%>
 			<%(1..sample.product.repetitions).each do |i|%>
 				<tr>
 					<%sample.sensory_analyses.where(repetition_id: i).each do |analysis|%>
 						<td><%=analysis.value%></td>
 					<%end%>
 				</tr>
+			<%end%>
 			<%end%>
 		</tbody>
 	</table>

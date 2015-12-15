@@ -18,7 +18,8 @@
 			</tr>
 		</thead>
 		<tbody>
-		<%if sample.product.repetitions != nil%>	
+		<%byebug%>
+		<%if(sample.product.repetitions >=1)%>	
 			<%(1..sample.product.repetitions).each do |i|%>
 				<tr>
 					<%sample.sensory_analyses.where(repetition_id: i).each do |analysis|%>
@@ -26,7 +27,7 @@
 					<%end%>
 				</tr>
 			<%end%>
-			<%end%>
+		<%end%>
 		</tbody>
 	</table>
 </div>
