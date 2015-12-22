@@ -1,5 +1,5 @@
 competitors = []
-var ready = function() {
+ function ready(){
   
 
 $('.glyphicon-plus').on("click",function(){
@@ -23,3 +23,8 @@ dataElements.hover(hoverHandler,hoverHandler);
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
+
+function reset(){
+	$('.glyphicon-plus').off();
+	$('tr[data-link]').children(':nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5),:nth-child(6)').off();
+}
