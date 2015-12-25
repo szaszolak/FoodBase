@@ -40,6 +40,9 @@ gem 'zip-zip'
 gem 'axlsx_rails'
 gem 'acts_as_xlsx'
 
+#pdf generation
+gem "prawnto_2", :require => "prawnto"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
