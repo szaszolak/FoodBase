@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :media
  
   devise_for :admins
-  devise_for :users
+  devise_for :users, controllers: { sessions: "users/sessions" }
   resources :ingredients
   resources :categories
   get 'import'=>'import#new'

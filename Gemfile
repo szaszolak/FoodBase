@@ -42,7 +42,9 @@ gem 'acts_as_xlsx'
 
 #pdf generation
 gem "prawnto_2", :require => "prawnto"
-
+gem 'prawn-table'
+#svg to png conversion for pdf
+gem 'gruff'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

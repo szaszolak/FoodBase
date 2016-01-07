@@ -1,4 +1,3 @@
-<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 <div product-id="<%=params[:id]%>"class="panel panel-default">
 <nav class="navbar navbar-default">
@@ -8,6 +7,8 @@
     </div>
 	<ul class="nav navbar-nav">
   	    <li><%= link_to ".xlsx", product_path(@product,format: "xlsx") %></li>
+         <li><%= link_to ".pdf", product_path(@product,format: "pdf"), id: "pdf"%></li>
+
       </ul>
     
       <ul class="nav navbar-nav navbar-right">
@@ -50,6 +51,10 @@
   <%= render partial: 'products/analyse_partials/sample', locals: { sample: sample } %>
 <% end %>
 <%end%>
-<%if(@product.samples_count && @product.repetitions && @product.samples_count > 0 && @product.repetitions > 0)%>
-<%= javascript_include_tag "charts/bar.js", "data-turbolinks-track" => true %>
+
+<%if @charts %>
+<% @charts.each do |chart| %>
+
+<%=image_tag(chart)%>
+<%end%>
 <%end%>

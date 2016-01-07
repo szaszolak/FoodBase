@@ -49,6 +49,7 @@ $(window).on('load',
 						 $('#error-bars-switch').on('change',  function(e) {
 							toggleErrorBars();
     						});
+
 })
 		
 
@@ -136,4 +137,7 @@ function toggleErrorBars(){
 	else
 		$('.error-bar').css('display','inline');
 }
+
+
+
 });

@@ -21,6 +21,8 @@ var hoverHandler = function(){
 dataElements.hover(hoverHandler,hoverHandler);
 };
 
+
+
 $(document).ready(ready);
 $(document).on('page:load', ready);
 

@@ -1,5 +1,8 @@
 class ProductsController < ApplicationController
-  before_action :set_product, only: [:show, :edit, :update, :destroy]
+  
+  before_action :set_product, only: [:show,:pepare_charts, :edit, :update, :destroy,:getPdf]
+  #before_action :pepare_charts, only: [:show]
+  #after_action :destroy_charts, only: [:show]
   # GET /products
   # GET /products.json
   def index
@@ -12,13 +15,14 @@ class ProductsController < ApplicationController
 
   # GET /products/1
   # GET /products/1.json
+  
   def show
     respond_to do |format|
-      format.html
+      format.html{ pepare_charts}
       format.xls { response.headers['Content-Disposition'] = "attachment; filename=\"#{@product.name}.xls\""}
       format.xlsx
       format.json
-      format.pdf
+      format.pdf{ pepare_charts('330x330')}
     end
   end
 
@@ -115,5 +119,43 @@ class ProductsController < ApplicationController
         @products = Product.all
       end
     end
+
+    def pepare_charts(size="460x512")
+      @path = "app/assets/images/"+current_user.id.to_s+"/";
+      FileUtils.remove_dir @path, true
+
+      @charts = [] 
+      files = []
+      FileUtils.makedirs(@path)
+        
+      #@product.samples.calculate(:avg,:group)
+      avgs = []
+      @product.metrics.distinct().each do |metric|
+        file = File.new(@path+"#{metric.id}.png","w+")
+        line_chart = Gruff::Bar.new(size)
+        line_chart.theme = {
+           :colors => %w(green orange purple #cccccc), # colors can be described on hex values (#0f0f0f)
+          :marker_color => 'grey', # The horizontal lines color
+          :background_colors =>'white' 
+        } 
+         line_chart.title = metric.name
+         avgs = @product.samples.joins(:sensory_analyses).where("sensory_analyses.metric_id=?", metric.id).group('samples.id').average(:value)
+          avgs.each do |avg|
+            
+            s = @product.samples.find(avg[0])
+            line_chart.data(s.additive.name + " "+s.amount.to_s,avg[1])
+          end
+       
+       line_chart.maximum_value = avgs.map{|x|x[1]}.max * 1.1
+       line_chart.minimum_value = avgs.map{|x|x[1]}.min* 0.8
+      # p.samples.average(:value,:conditions=>['sensory_analyses.metric_id=?',1],:joins=>'INNER JOIN sensory_analyses on samples.id = sensory_analyses.sample_id',:group=>'id')
+      #line_chart.labels = {0=>'Value (USD)'}
+      line_chart.write(file.path)
+
+      @charts.push current_user.id.to_s+"/"+metric.id.to_s+".png"
+    end
+
+    end
+
 end
 
