@@ -132,25 +132,27 @@ class ProductsController < ApplicationController
       avgs = []
       @product.metrics.distinct().each do |metric|
         file = File.new(@path+"#{metric.id}.png","w+")
-        line_chart = Gruff::Bar.new(size)
-        line_chart.theme = {
+        chart = Gruff::Bar.new(size)
+        chart.y_axis_label = metric.name
+        
+        chart.theme = {
            :colors => %w(green orange purple #cccccc), # colors can be described on hex values (#0f0f0f)
           :marker_color => 'grey', # The horizontal lines color
           :background_colors =>'white' 
         } 
-         line_chart.title = metric.name
+         chart.title = metric.name
          avgs = @product.samples.joins(:sensory_analyses).where("sensory_analyses.metric_id=?", metric.id).group('samples.id').average(:value)
           avgs.each do |avg|
             
             s = @product.samples.find(avg[0])
-            line_chart.data(s.additive.name + " "+s.amount.to_s,avg[1])
+            chart.data(s.additive.name + " "+s.amount.to_s,avg[1])
           end
        
-       line_chart.maximum_value = avgs.map{|x|x[1]}.max * 1.1
-       line_chart.minimum_value = avgs.map{|x|x[1]}.min* 0.8
+       chart.maximum_value = avgs.map{|x|x[1]}.max * 1.1
+       chart.minimum_value = avgs.map{|x|x[1]}.min* 0.8
       # p.samples.average(:value,:conditions=>['sensory_analyses.metric_id=?',1],:joins=>'INNER JOIN sensory_analyses on samples.id = sensory_analyses.sample_id',:group=>'id')
       #line_chart.labels = {0=>'Value (USD)'}
-      line_chart.write(file.path)
+      chart.write(file.path)
 
       @charts.push current_user.id.to_s+"/"+metric.id.to_s+".png"
     end
