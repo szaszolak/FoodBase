@@ -11,6 +11,7 @@ class RecipesController < ApplicationController
     @recipe.amount = recipe_params[:amount]
     @recipe.product_id = params[:product_id]
     @recipe.ingredient_id = recipe_params[:ingredient_id]
+    byebug
     respond_to do |format|
       if @recipe.save
         format.html{ redirect_to product_recipes_path(@product)}

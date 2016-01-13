@@ -18,11 +18,11 @@ class ProductsController < ApplicationController
   
   def show
     respond_to do |format|
-      format.html{ pepare_charts}
+      format.html{ @charts = @product.pepare_charts(current_user)}
       format.xls { response.headers['Content-Disposition'] = "attachment; filename=\"#{@product.name}.xls\""}
       format.xlsx
       format.json
-      format.pdf{ pepare_charts('330x330')}
+      format.pdf{ @charts = @product.pepare_charts(current_user,'330x330')}
     end
   end
 
@@ -120,44 +120,7 @@ class ProductsController < ApplicationController
       end
     end
 
-    def pepare_charts(size="460x512")
-      @path = "app/assets/images/"+current_user.id.to_s+"/";
-      FileUtils.remove_dir @path, true
-
-      @charts = [] 
-      files = []
-      FileUtils.makedirs(@path)
-        
-      #@product.samples.calculate(:avg,:group)
-      avgs = []
-      @product.metrics.distinct().each do |metric|
-        file = File.new(@path+"#{metric.id}.png","w+")
-        chart = Gruff::Bar.new(size)
-        chart.y_axis_label = metric.name
-        
-        chart.theme = {
-           :colors => %w(green orange purple #cccccc), # colors can be described on hex values (#0f0f0f)
-          :marker_color => 'grey', # The horizontal lines color
-          :background_colors =>'white' 
-        } 
-         chart.title = metric.name
-         avgs = @product.samples.joins(:sensory_analyses).where("sensory_analyses.metric_id=?", metric.id).group('samples.id').average(:value)
-          avgs.each do |avg|
-            
-            s = @product.samples.find(avg[0])
-            chart.data(s.additive.name + " "+s.amount.to_s,avg[1])
-          end
-       
-       chart.maximum_value = avgs.map{|x|x[1]}.max * 1.1
-       chart.minimum_value = avgs.map{|x|x[1]}.min* 0.8
-      # p.samples.average(:value,:conditions=>['sensory_analyses.metric_id=?',1],:joins=>'INNER JOIN sensory_analyses on samples.id = sensory_analyses.sample_id',:group=>'id')
-      #line_chart.labels = {0=>'Value (USD)'}
-      chart.write(file.path)
-
-      @charts.push current_user.id.to_s+"/"+metric.id.to_s+".png"
-    end
-
-    end
+   
 
 end
 
