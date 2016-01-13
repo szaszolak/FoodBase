@@ -26,7 +26,15 @@
                  
                 </div>
               </div>
-              <% end %>
+              <% elsif lookup_context.find_all(controller.controller_name+"/_side").any?%>
+                <div class="panel panel-default">
+                  <div class="panel-body">
+                    
+                      <%= render "side" %>
+                   
+                  </div>
+                </div>
+              <%end%>
             </div>
        
       

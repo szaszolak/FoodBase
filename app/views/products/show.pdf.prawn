@@ -48,7 +48,7 @@ move_down 2
 
   #create a bounding box for the list-item content
   bounding_box [25,cursor], :width => 600 do
-    text recipe.ingredient.name+" " +recipe.amount.to_s
+    text recipe.ingredient.name+" " +recipe.amount.to_s + "g"
   end
 
   #provide a space between list-items
@@ -61,7 +61,8 @@ text @product.description
 
 move_down 20
 @product.samples.each do |sample|
-text "Próbka: "+sample.additive.name + " " +sample.amount.to_s+" %",:align => :center
+text "Próbka: "+sample.additive.name + " " +sample.amount.to_s+" %",:align => :center, style: :bold
+text "Temperatura smażenia: " +sample.temperature.to_s + "\uc2b0C",:align => :center
 data = [sample.metrics.uniq{|m| m.name}.collect{|x| x.name}]
 if sample.product.repetitions && sample.product.repetitions >=1
 			(1..sample.product.repetitions).each do |i|
