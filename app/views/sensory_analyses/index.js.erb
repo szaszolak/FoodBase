@@ -1,0 +1,4 @@
+
+$('#series_data').html("<%= j  render partial: 'series_analysis', locals: {sample:@sample, product:@product, sensory_analyses: @sensory_analyses, definition: @definition } %>");
+$(".dropdown").removeClass('open');
+$("#ddMetrykaText").text("<%=@definition.metric.try(:name)%>")

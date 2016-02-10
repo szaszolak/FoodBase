@@ -1,6 +1,6 @@
 class SamplesController < ApplicationController
   before_action :set_sample, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_product
   # GET /samples
   # GET /samples.json
   def index
@@ -14,6 +14,7 @@ class SamplesController < ApplicationController
 
   # GET /samples/new
   def new
+  
     @sample = Sample.new
   end
 
@@ -24,11 +25,11 @@ class SamplesController < ApplicationController
   # POST /samples
   # POST /samples.json
   def create
-    @sample = Sample.new(sample_params)
+    @sample = @product.samples.build(sample_params)
 
     respond_to do |format|
       if @sample.save
-        format.html { redirect_to @sample, notice: 'Sample was successfully created.' }
+        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), notice: 'Sample was successfully created.' }
         format.json { render :show, status: :created, location: @sample }
       else
         format.html { render :new }
@@ -69,6 +70,9 @@ class SamplesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def sample_params
-      params.require(:sample).permit(:amount, :temperature)
+      params.require(:sample).permit(:amount, :temperature,:additive_id)
+    end
+    def set_product
+        @product = Product.find(params[:product_id])
     end
 end

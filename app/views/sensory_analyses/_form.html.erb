@@ -1,5 +1,5 @@
-<%= form_for(@sensory_analysis) do |f| %>
-  <% if @sensory_analysis.errors.any? %>
+<%= form_for(@sensory_analysis, url: product_sample_sensory_analyses_path(@product,@sample))  do |f| %>
+<% if @sensory_analysis.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sensory_analysis.errors.count, "error") %> prohibited this sensory_analysis from being saved:</h2>
 
@@ -11,30 +11,23 @@
     </div>
   <% end %>
 
+
   <div class="field">
-    <%= f.label :color_L %><br>
-    <%= f.text_field :color_L %>
+    <%= f.label :value %><br>
+    <%= f.text_field :value %>
+  </div>
+    <div class="field">
+    <%= f.label :metric_id %><br>
+    <%= f.text_field :metric_id %>
   </div>
   <div class="field">
-    <%= f.label :color_A %><br>
-    <%= f.text_field :color_A %>
+    <%= f.label :repetition_id %><br>
+    <%= f.text_field :repetition_id %>
   </div>
-  <div class="field">
-    <%= f.label :color_B %><br>
-    <%= f.text_field :color_B %>
-  </div>
-  <div class="field">
-    <%= f.label :cutting_strength %><br>
-    <%= f.text_field :cutting_strength %>
-  </div>
-  <div class="field">
-    <%= f.label :fat %><br>
-    <%= f.text_field :fat %>
-  </div>
-  <div class="field">
-    <%= f.label :humidity %><br>
-    <%= f.text_field :humidity %>
-  </div>
+    <%= f.hidden_field :serie_id, value: @sensory_analysis.serie_id%>
+    <%= f.hidden_field :repetition_id, value:  @sensory_analysis.repetition_id%>
+
+ 
   <div class="actions">
     <%= f.submit %>
   </div>

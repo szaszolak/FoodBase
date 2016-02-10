@@ -1,34 +1,26 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Sensory Analyses</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Color l</th>
-      <th>Color a</th>
-      <th>Color b</th>
-      <th>Cutting strength</th>
-      <th>Fat</th>
-      <th>Humidity</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @sensory_analyses.each do |sensory_analysis| %>
-      <tr>
-        <td><%= sensory_analysis.color_L %></td>
-        <td><%= sensory_analysis.color_A %></td>
-        <td><%= sensory_analysis.color_B %></td>
-        <td><%= sensory_analysis.cutting_strength %></td>
-        <td><%= sensory_analysis.fat %></td>
-        <td><%= sensory_analysis.humidity %></td>
+<div class="jumbotron">
+  <h3><%= @product.name+" "+@sample.amount.to_s+"% "+@sample.additive.try(:name) %> </h3>
+  <div>
+  <p class="pull-left">
+      Metryka:  </p>
+        <div class="dropdown pull-left">
+          <button class="btn btn-default dropdown-toggle" type="button" id="dropdownMetryki" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+            <span id="ddMetrykaText">Metryka</span>
+            <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <% @product.experiment_definitions.each do |definition| %>
+               <li data-toggle="collapse"><%=link_to definition.metric.try(:name), product_sample_sensory_analyses_path(@product,@sample)+"?metric_id="+definition.metric.try(:id).to_s,remote: :true %></li>
+            <%end%>
+          </ul>
+        </div></div>
        
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+  </div>
 
-<br>
+<div id="series_data">
+</div>
 
+
+
+
+<%= link_to "Zatwierdź", new_product_experiment_definition_path(@product),class: "btn btn-success" %>

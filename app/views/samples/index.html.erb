@@ -15,7 +15,7 @@
   <tbody>
     <% @samples.each do |sample| %>
       <tr>
-        <td><%= sample.additive.name %></td>
+        <td><%= sample.additive.try(:name) %></td>
         <td><%= sample.amount %></td>
         <td><%= sample.temperature %></td>
        

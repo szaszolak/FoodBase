@@ -1,10 +1,21 @@
 class SensoryAnalysesController < ApplicationController
   before_action :set_sensory_analysis, only: [:show, :edit, :update, :destroy]
-
+  before_action :set_sample
+  before_action :set_product
   # GET /sensory_analyses
   # GET /sensory_analyses.json
   def index
-    @sensory_analyses = SensoryAnalysis.all
+    if params[:metric_id]
+      @sensory_analyses = @sample.sensory_analyses.where("metric_id=?",params[:metric_id])
+      @definition = @product.experiment_definitions.where("metric_id=?",params[:metric_id]).first
+
+    else
+       @sensory_analyses = @sample.sensory_analyses
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /sensory_analyses/1
@@ -14,7 +25,10 @@ class SensoryAnalysesController < ApplicationController
 
   # GET /sensory_analyses/new
   def new
-    @sensory_analysis = SensoryAnalysis.new
+    
+    @sensory_analysis = @sample.sensory_analyses.build
+    @sensory_analysis.repetition_id = params[:repetition]
+    @sensory_analysis.serie_id = params[:series]
   end
 
   # GET /sensory_analyses/1/edit
@@ -24,7 +38,7 @@ class SensoryAnalysesController < ApplicationController
   # POST /sensory_analyses
   # POST /sensory_analyses.json
   def create
-    @sensory_analysis = SensoryAnalysis.new(sensory_analysis_params)
+    @sensory_analysis = @sample.sensory_analyses.build(sensory_analysis_params)
 
     respond_to do |format|
       if @sensory_analysis.save
@@ -66,7 +80,12 @@ class SensoryAnalysesController < ApplicationController
     def set_sensory_analysis
       @sensory_analysis = SensoryAnalysis.find(params[:id])
     end
-
+    def set_sample
+      @sample = Sample.find(params[:sample_id])
+    end
+    def set_product
+      @product = Product.find(params[:product_id])      
+    end
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensory_analysis_params
       params.require(:sensory_analysis).permit(:color_L, :color_A, :color_B, :cutting_strength, :fat, :humidity)

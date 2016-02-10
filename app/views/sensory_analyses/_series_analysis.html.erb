@@ -1,0 +1,34 @@
+<% if sensory_analyses && definition %>
+<% (1..definition.series).each do |series| %>
+<table class="table">
+	<thead>
+		<tr>
+			<th>
+			Seria <%=series%>
+			</th>
+			<th>
+				Warość
+			</th>
+			<th>
+				
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+		<%(1..definition.repetitions).each do |i| %>
+		<% analysis = sensory_analyses.where("serie_id=? AND repetition_id=?",series,i).first %>
+			<tr>
+			<td>Powtorzenie <%=i%></td>
+			<%if analysis %>
+			<td><%= sensory_analyses.where("serie_id=? AND repetition_id=?",series,i).first.try(:value) %></td>
+			<td><%= link_to 'Edytuj',edit_product_sample_sensory_analysis_path(product,sample,analysis)%></td>
+			<%else%>
+			<td>-</td>
+			<td><%= link_to 'Dodaj',new_product_sample_sensory_analysis_path(product,sample,:series => series,:repetition =>i)%></td>
+			<%end%>
+			</tr>
+		<%end%>
+	</tbody>
+</table>
+<%end%>
+<%end%>

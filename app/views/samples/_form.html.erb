@@ -1,4 +1,4 @@
-<%= form_for(@sample) do |f| %>
+<%= form_for [@product,@sample] do |f| %>
   <% if @sample.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@sample.errors.count, "error") %> prohibited this sample from being saved:</h2>
@@ -10,14 +10,17 @@
       </ul>
     </div>
   <% end %>
-
+ <div class='field'>
+    <%= f.label :additive_id %></br>
+    <%= collection_select :sample, :additive_id, Additive.all, :id,:name,promt: false %>
+  </div>
   <div class="field">
     <%= f.label :amount %><br>
-    <%= f.text_field :amount %>
+    <%= f.number_field :amount , min: 0 %>
   </div>
   <div class="field">
     <%= f.label :temperature %><br>
-    <%= f.text_field :temperature %>
+     <%= f.number_field :temperature , min: 0 %>
   </div>
   <div class="actions">
     <%= f.submit %>

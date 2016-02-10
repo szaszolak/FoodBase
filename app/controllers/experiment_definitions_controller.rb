@@ -7,7 +7,7 @@ class ExperimentDefinitionsController < ApplicationController
 
   def create
   	 @definition = @product.experiment_definitions.build(definition_params)
-  	
+  
     respond_to do |format|
       if @definition.save
         format.html{ redirect_to new_product_experiment_definition_path(@product), notice: 'Description was successfully created.' }
