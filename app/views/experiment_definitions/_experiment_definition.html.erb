@@ -1,0 +1,15 @@
+<tr>
+      <td>
+        <%= experiment_definition.metric.try(:name) %>
+       </td>
+       <td>
+        <%= experiment_definition.repetitions %>
+       </td>
+         <td>
+        <%= experiment_definition.series %>
+       </td>
+       <td>
+
+       	  <%= link_to product_experiment_definition_path(@product,experiment_definition), remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon" do%><span class="glyphicon glyphicon-remove" aria-hidden="true"> <%end%></span>
+       </td>
+</tr>

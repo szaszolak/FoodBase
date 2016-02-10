@@ -19,21 +19,6 @@
 </nav>
 
 <div class="panel-body">
-<p>
-	<strong>Powtórzenia:</strong>
-	<%=@product.repetitions%><br/>
-  <strong>Poróbki:</strong>
-  <%=@product.samples_count%>
-</p>
-
-<p>
-	<strong>Mierzone cechy:</strong>
-	<ul>
-		<%@product.metrics.uniq{|m| m.id }.collect {|metric| metric.name}.each do|metric|%>
-			<li><%=metric%></li>
-		<%end%>
-	</ul>
-</p>
 <a href='<%=@product.article_url%>' rel="external" target="_blank"> <%=@product.article_url%></a>
     <p>
 	  <strong>Opis:</strong>
@@ -46,9 +31,11 @@
 
 </div>
   <%= render partial: 'products/analyse_partials/recipe'%>
-<%if @product.samples_count%>  
-<% @product.samples.each do |sample| %>
-  <%= render partial: 'products/analyse_partials/sample', locals: { sample: sample } %>
+
+<%if @product.experiment_definitions%>  
+<% @product.experiment_definitions.each do |definition| %>
+
+  <%= render partial: 'products/analyse_partials/metric', locals: { definition: definition } %>
 <% end %>
 <%end%>
 

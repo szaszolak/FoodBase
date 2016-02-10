@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+
+
   resources :metrics
   resources :additives
 
@@ -18,6 +20,7 @@ Rails.application.routes.draw do
        post :compare
      end
     resources :recipes
+    resources :experiment_definitions, only: [:new,:create,:destroy,:update]
     resources :samples do
         resources :sensory_analyses
     end

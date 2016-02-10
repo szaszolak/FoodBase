@@ -1,0 +1,38 @@
+<%= form_for [@product,@definition] do |f| %>
+  <!--<% if @definition.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@definition.errors.count, "error") %> prohibited this additive from being saved:</h2>
+
+      <ul>
+      <% @definition.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>-->
+   <th>
+   <div class='field'>
+    <%= f.label :metric_id %></br>
+    <%= collection_select :experiment_definition, :metric_id, Metric.all, :id,:name,promt: false %>
+  </div>
+  </th>
+  <th>
+    <div class="field">
+    <%= f.label :repetitions %><br>
+    <%= f.number_field :repetitions, min: 0 %>
+  </div></th>
+  </th>
+  <th>
+    <div class="field">
+    <%= f.label :series  %><br>
+    <%= f.number_field :series , min: 0 %>
+  </div>
+ </th>
+<th>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+  </th>
+<% end %>
+
+

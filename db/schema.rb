@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151130080238) do
+ActiveRecord::Schema.define(version: 20160209133031) do
 
   create_table "additives", force: :cascade do |t|
     t.string   "name"
@@ -40,6 +40,30 @@ ActiveRecord::Schema.define(version: 20151130080238) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "experiment_definitions", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "metric_id"
+    t.integer  "series"
+    t.integer  "repetitions"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "experiment_definitions", ["metric_id"], name: "index_experiment_definitions_on_metric_id"
+  add_index "experiment_definitions", ["product_id"], name: "index_experiment_definitions_on_product_id"
+
+  create_table "experiment_defnitions", force: :cascade do |t|
+    t.integer  "product_id"
+    t.integer  "metric_id"
+    t.integer  "series"
+    t.integer  "repetitions"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
+  add_index "experiment_defnitions", ["metric_id"], name: "index_experiment_defnitions_on_metric_id"
+  add_index "experiment_defnitions", ["product_id"], name: "index_experiment_defnitions_on_product_id"
+
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -62,11 +86,9 @@ ActiveRecord::Schema.define(version: 20151130080238) do
     t.string   "name"
     t.text     "description"
     t.string   "article_url"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.integer  "category_id"
-    t.integer  "repetitions"
-    t.integer  "samples_count"
   end
 
   create_table "recipes", force: :cascade do |t|
@@ -99,6 +121,7 @@ ActiveRecord::Schema.define(version: 20151130080238) do
     t.integer  "metric_id"
     t.integer  "repetition_id"
     t.decimal  "value"
+    t.integer  "serie_id"
   end
 
   add_index "sensory_analyses", ["metric_id"], name: "index_sensory_analyses_on_metric_id"

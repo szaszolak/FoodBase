@@ -1,0 +1,39 @@
+<%samples = @product.samples_with_metric(definition.metric_id).distinct%>
+<div class="panel panel-default">
+<div class="panel-heading">
+	<h3 class="panel-title"><%= definition.metric.name %></h3>
+</div>
+<div class="panel-body">
+	<% if samples.count > 0 %>
+		<table class='table'>
+		
+			<thead class='sensory_analysis'>
+				<tr>
+				<th></th>
+					<% @product.samples_with_metric(definition.metric_id).distinct.each do |sample|%>
+						<th><%=sample.additive.name+" "+sample.amount.to_s + "%" %></th>
+					<%end%>
+				</tr>
+			</thead>
+			<tbody>
+			
+				<%(0..definition.series-1).each do |serie|%>
+					<%(0..definition.repetitions - 1).each do |repetition| %>
+						<tr>
+						<%if repetition==0%>
+							<td rowspan="<%= definition.repetitions%>">Seria <%=serie + 1%></td>
+						<%end%>
+								<%byebug%>
+							<% @product.samples_with_metric(definition.metric_id).where("serie_id=? AND repetition_id=?",serie,repetition).each do |analysis|%>
+						
+								<td><%=analysis.value%></td>
+							<%end%>
+						</tr>
+					<%end%>
+				<%end%>	
+			</tbody>
+		</table>
+	<%end%>
+</div>
+</div>
+

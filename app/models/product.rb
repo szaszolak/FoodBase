@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
 	has_many :sensory_analyses, through: :samples
 	has_many :metrics,through: :samples
 	has_many :additives,through: :samples
-
+  has_many :experiment_definitions
 
 	validates :description, :name,:category_id, presence: true 
 	validates_associated :recipes
@@ -34,7 +34,7 @@ class Product < ActiveRecord::Base
           :background_colors =>'white' 
         } 
          chart.title = metric.name
-         avgs = self.samples.joins(:sensory_analyses).where("sensory_analyses.metric_id=?", metric.id).group('samples.id').average(:value)
+         avgs = self.samples_with_metric(metric.id).group('samples.id').average(:value)
          avgs.each do |avg|
             
             s = self.samples.find(avg[0])
@@ -52,10 +52,16 @@ class Product < ActiveRecord::Base
       return charts
     end
 
+    def samples_with_metric(metric_id)
+      self.samples.joins(:sensory_analyses).where("sensory_analyses.metric_id=?",metric_id)
+    end
+
 	private 
 	def externalize_url
 		unless /^http:\/\//.match(self.article_url)
 			self.article_url = "http:\/\/"+self.article_url;
 		end
 	end
+
+
 end

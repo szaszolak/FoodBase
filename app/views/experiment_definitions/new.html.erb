@@ -1,0 +1,19 @@
+
+<div class="panel panel-default">
+  	<div class="panel-heading">
+    	<h3 class="panel-title"><%= @product.name %>  definicje pomiarów</h3>
+	</div>  
+<div class="panel-body">
+<table class='table'>
+<thead>
+<tr>
+<%= render 'form' %>
+</tr>
+</thead>
+<tbody>
+
+<%= render (@defintions) %>
+</tbody>
+</table>
+<%= link_to 'Back', product_path(@product), class: "btn btn-success" %>
+</div>

@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_id: 
+  metric_id: 
+  series: 1
+  repetitions: 1
+
+two:
+  product_id: 
+  metric_id: 
+  series: 1
+  repetitions: 1
