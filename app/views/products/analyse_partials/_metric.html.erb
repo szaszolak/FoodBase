@@ -17,16 +17,15 @@
 			</thead>
 			<tbody>
 			
-				<%(0..definition.series-1).each do |serie|%>
-					<%(0..definition.repetitions - 1).each do |repetition| %>
+				<%(1..definition.series).each do |serie|%>
+					<%(1..definition.repetitions).each do |repetition| %>
 						<tr>
-						<%if repetition==0%>
-							<td rowspan="<%= definition.repetitions%>">Seria <%=serie + 1%></td>
+						<%if repetition==1%>
+							<td rowspan="<%= definition.repetitions%>">Seria <%=serie%></td>
 						<%end%>
-								<%byebug%>
-							<% @product.samples_with_metric(definition.metric_id).where("serie_id=? AND repetition_id=?",serie,repetition).each do |analysis|%>
-						
-								<td><%=analysis.value%></td>
+							
+							<% @product.samples_with_metric(definition.metric_id).distinct.each do |sample|%>
+								<td><%=sample.sensory_analyses.where("serie_id=? AND repetition_id=?",serie,repetition).first.try(:value)%></td>
 							<%end%>
 						</tr>
 					<%end%>

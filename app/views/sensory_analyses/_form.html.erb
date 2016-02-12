@@ -16,15 +16,10 @@
     <%= f.label :value %><br>
     <%= f.text_field :value %>
   </div>
-    <div class="field">
-    <%= f.label :metric_id %><br>
-    <%= f.text_field :metric_id %>
-  </div>
-  <div class="field">
-    <%= f.label :repetition_id %><br>
-    <%= f.text_field :repetition_id %>
-  </div>
+   
+  
     <%= f.hidden_field :serie_id, value: @sensory_analysis.serie_id%>
+    <%= f.hidden_field :metric_id, value: @sensory_analysis.metric_id%>
     <%= f.hidden_field :repetition_id, value:  @sensory_analysis.repetition_id%>
 
  

@@ -24,7 +24,7 @@
 			<td><%= link_to 'Edytuj',edit_product_sample_sensory_analysis_path(product,sample,analysis)%></td>
 			<%else%>
 			<td>-</td>
-			<td><%= link_to 'Dodaj',new_product_sample_sensory_analysis_path(product,sample,:series => series,:repetition =>i)%></td>
+			<td><%= link_to 'Dodaj',new_product_sample_sensory_analysis_path(product,sample,:series => series,:repetition =>i,:metric_id => definition.metric.id)%></td>
 			<%end%>
 			</tr>
 		<%end%>

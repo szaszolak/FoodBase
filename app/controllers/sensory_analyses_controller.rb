@@ -29,6 +29,7 @@ class SensoryAnalysesController < ApplicationController
     @sensory_analysis = @sample.sensory_analyses.build
     @sensory_analysis.repetition_id = params[:repetition]
     @sensory_analysis.serie_id = params[:series]
+    @sensory_analysis.metric_id = params[:metric_id]
   end
 
   # GET /sensory_analyses/1/edit
@@ -42,7 +43,7 @@ class SensoryAnalysesController < ApplicationController
 
     respond_to do |format|
       if @sensory_analysis.save
-        format.html { redirect_to @sensory_analysis, notice: 'Sensory analysis was successfully created.' }
+        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), notice: 'Sensory analysis was successfully created.' }
         format.json { render :show, status: :created, location: @sensory_analysis }
       else
         format.html { render :new }
@@ -88,6 +89,6 @@ class SensoryAnalysesController < ApplicationController
     end
     # Never trust parameters from the scary internet, only allow the white list through.
     def sensory_analysis_params
-      params.require(:sensory_analysis).permit(:color_L, :color_A, :color_B, :cutting_strength, :fat, :humidity)
+      params.require(:sensory_analysis).permit(:metric_id,:value,:repetition_id,:serie_id)
     end
 end
