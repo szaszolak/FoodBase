@@ -2,9 +2,16 @@ wb = xlsx_package.workbook
 wb.add_worksheet(name: "Produkt") do |sheet|
 	
     sheet.add_row ['Kategoria',@product.category.name]
-    sheet.add_row ['Nazwa','Opis','Url artykułu','Powtórzenia','Próbki']
-    sheet.add_row [@product.name,@product.description,@product.article_url,@product.repetitions,@product.samples.count]
+    sheet.add_row ['Nazwa','Opis','Url artykułu']
+    sheet.add_row [@product.name,@product.description,@product.article_url]
 
+    sheet.add_row
+    sheet.add_row ["Definicja Pomiarów"]
+    sheet.add_row ["Metryka","Serie","Powtórzenia"]
+    
+    @product.experiment_definitions.each do |definition|
+    	sheet.add_row [definition.metric.try(:name),definition.series,definition.repetitions]
+    end
 end
 
 wb.add_worksheet(name: "Receptura") do |sheet|
@@ -18,21 +25,17 @@ wb.add_worksheet(name: "Receptura") do |sheet|
 	sheet.add_row names
 	sheet.add_row vals
 end
-@product.samples.each do |sample|
-	if sample.additive
-		additive = [sample.additive.name,sample.amount]  
-		name = sample.additive.name + " " +sample.amount.to_s;
-	else 
-		name = 'wzorcowy'
-		additive = [name,"-"]  
-	end;
-	wb.add_worksheet(name: name ) do |sheet|
-		sheet.add_row [additive[0],"Temperatura"]
-		sheet.add_row [additive[1],sample.temperature]
-		sheet.add_row sample.metrics.uniq{|m| m.id }.collect {|metric| metric.name}
-		(1..@product.repetitions).each do |i|
-			sheet.add_row sample.sensory_analyses.where(repetition_id: i).map{|analysis|analysis.value.to_f}
+
+@product.experiment_definitions.each do |definition|
+wb.add_worksheet(name: definition.metric.try(:name) ) do |sheet|
+		samples = @product.samples_with_metric(definition.metric_id).distinct
+		(1..definition.series).each do |serie|
+			sheet.add_row ["Seria "+serie.to_s]
+			sheet.add_row samples.map{|x|x.additive.try(:name) +" "+x.amount.to_s}.to_a
+				(1..definition.repetitions).each do |repetition| 
+					sheet.add_row samples.map{|s| s.sensory_analyses.where("serie_id=? AND repetition_id=? AND metric_id=?",serie,repetition,definition.metric_id).first.try(:value)}.to_a 
+				end
+			sheet.add_row []
 		end
 	end
-
 end
