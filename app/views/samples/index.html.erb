@@ -1,13 +1,12 @@
-<p id="notice"><%= notice %></p>
 
-<h1>Listing Samples</h1>
+<h1><%= @product.name %> próbki</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Additive</th>
-      <th>Amount</th>
-      <th>Temperature</th>
+      <th>Dodatek</th>
+      <th>Ilość</th>
+      <th>Temperatura</th>
 
     </tr>
   </thead>
@@ -18,6 +17,8 @@
         <td><%= sample.additive.try(:name) %></td>
         <td><%= sample.amount %></td>
         <td><%= sample.temperature %></td>
+        <td><%= link_to 'Edytuj',edit_product_sample_path(@product,sample)%></td>
+        <td><%= link_to 'Pokaż',product_sample_sensory_analyses_path(@product,sample)%></td>
        
       </tr>
     <% end %>

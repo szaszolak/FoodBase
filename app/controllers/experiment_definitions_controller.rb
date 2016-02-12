@@ -1,6 +1,6 @@
 class ExperimentDefinitionsController < ApplicationController
   before_action :set_product
-  def new
+  def index
     @defintions = @product.experiment_definitions.all
   	@definition = @product.experiment_definitions.build
   end
@@ -10,7 +10,7 @@ class ExperimentDefinitionsController < ApplicationController
   
     respond_to do |format|
       if @definition.save
-        format.html{ redirect_to new_product_experiment_definition_path(@product), notice: 'Description was successfully created.' }
+        format.html{ redirect_to product_experiment_definitions_path(@product), notice: 'Description was successfully created.' }
         #format.json { render :show, status: :created, location: @product }
       else
         format.html { render :new }

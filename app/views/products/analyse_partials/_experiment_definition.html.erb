@@ -1,7 +1,15 @@
 <div class="panel panel-default">
-<div class="panel-heading">
-	<h3 class="panel-title">Pomiary</h3>
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    	<p class="navbar-text">Pomiary</p>
+    </div>
+
+      <ul class="nav navbar-nav navbar-right">
+		<li><%= link_to 'Edit', product_experiment_definitions_path(@product) %></li>
+      </ul>
+    </div>
+</nav>
 <div class="panel-body">
 	<table class='table'>
 		<thead>

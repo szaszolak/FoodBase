@@ -1,8 +1,16 @@
 <%samples = @product.samples_with_metric(definition.metric_id).distinct%>
 <div class="panel panel-default">
-<div class="panel-heading">
-	<h3 class="panel-title"><%= definition.metric.name %></h3>
-</div>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+    	<p class="navbar-text"><%= definition.metric.name.capitalize %></p>
+    </div>
+
+      <ul class="nav navbar-nav navbar-right">
+		<li><%= link_to 'Edit', product_samples_path(@product) %></li>
+      </ul>
+    </div>
+</nav>
 <div class="panel-body">
 	<% if samples.count > 0 %>
 		<table class='table'>
@@ -10,7 +18,7 @@
 			<thead class='sensory_analysis'>
 				<tr>
 				<th></th>
-					<% @product.samples_with_metric(definition.metric_id).distinct.each do |sample|%>
+					<% samples.each do |sample|%>
 						<th><%=sample.additive.name+" "+sample.amount.to_s + "%" %></th>
 					<%end%>
 				</tr>

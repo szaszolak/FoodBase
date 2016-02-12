@@ -1,5 +1,5 @@
 <div class="jumbotron">
-  <h3><%= @product.name+" "+@sample.amount.to_s+"% "+@sample.additive.try(:name) %> </h3>
+  <h3><%=  "Produkt: "+ @product.name+", próbka z dodatkiem "+@sample.additive.try(:name) +" "+@sample.amount.to_s+"% " %> </h3>
   <div>
   <p class="pull-left">
       Metryka:  </p>
@@ -23,4 +23,4 @@
 
 
 
-<%= link_to "Zatwierdź", new_product_experiment_definition_path(@product),class: "btn btn-success" %>
+<%= link_to "Zatwierdź", product_experiment_definitions_path(@product),class: "btn btn-success" %>
