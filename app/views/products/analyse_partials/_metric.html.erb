@@ -7,7 +7,7 @@
     </div>
 
       <ul class="nav navbar-nav navbar-right">
-		<li><%= link_to 'Edit', product_samples_path(@product) %></li>
+		<li><%= link_to 'Edytuj Próbki', product_samples_path(@product) %></li>
       </ul>
     </div>
 </nav>
@@ -33,7 +33,7 @@
 						<%end%>
 							
 							<% @product.samples_with_metric(definition.metric_id).distinct.each do |sample|%>
-								<td><%=sample.sensory_analyses.where("serie_id=? AND repetition_id=?",serie,repetition).first.try(:value)%></td>
+								<td><%=sample.sensory_analyses.where("serie_id=? AND repetition_id=? AND metric_id=?",serie,repetition,definition.metric_id).first.try(:value)%></td>
 							<%end%>
 						</tr>
 					<%end%>
