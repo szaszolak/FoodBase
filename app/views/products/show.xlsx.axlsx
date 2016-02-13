@@ -7,10 +7,10 @@ wb.add_worksheet(name: "Produkt") do |sheet|
 
     sheet.add_row
     sheet.add_row ["Definicja Pomiarów"]
-    sheet.add_row ["Metryka","Serie","Powtórzenia"]
+    sheet.add_row ["Metryka","Serie","Powtórzenia"],style:Axlsx::STYLE_THIN_BORDER 
     
     @product.experiment_definitions.each do |definition|
-    	sheet.add_row [definition.metric.try(:name),definition.series,definition.repetitions]
+    	sheet.add_row [definition.metric.try(:name),definition.series,definition.repetitions],style:Axlsx::STYLE_THIN_BORDER 
     end
 end
 
@@ -33,7 +33,7 @@ wb.add_worksheet(name: definition.metric.try(:name) ) do |sheet|
 			sheet.add_row ["Seria "+serie.to_s]
 			sheet.add_row samples.map{|x|x.additive.try(:name) +" "+x.amount.to_s}.to_a
 				(1..definition.repetitions).each do |repetition| 
-					sheet.add_row samples.map{|s| s.sensory_analyses.where("serie_id=? AND repetition_id=? AND metric_id=?",serie,repetition,definition.metric_id).first.try(:value)}.to_a 
+					sheet.add_row samples.map{|s| s.sensory_analyses.where("serie_id=? AND repetition_id=? AND metric_id=?",serie,repetition,definition.metric_id).first.try(:value)}.to_a,style:Axlsx::STYLE_THIN_BORDER 
 				end
 			sheet.add_row []
 		end
