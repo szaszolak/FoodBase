@@ -30,10 +30,12 @@ end
 wb.add_worksheet(name: definition.metric.try(:name) ) do |sheet|
 		samples = @product.samples_with_metric(definition.metric_id).distinct
 		(1..definition.series).each do |serie|
-			sheet.add_row ["Seria "+serie.to_s]
-			sheet.add_row samples.map{|x|x.additive.try(:name) +" "+x.amount.to_s}.to_a
+			sheet.add_row ["Seria",serie.to_s]
+			sheet.add_row ["Dodatek:"] + samples.map{|x|x.additive.try(:name) }.to_a
+			sheet.add_row ["Ilość Dodatku:"] + samples.map{|x|x.amount.to_s}.to_a
+			sheet.add_row ["Temperatura:"] + samples.map{|x|x.temperature.to_s}.to_a
 				(1..definition.repetitions).each do |repetition| 
-					sheet.add_row samples.map{|s| s.sensory_analyses.where("serie_id=? AND repetition_id=? AND metric_id=?",serie,repetition,definition.metric_id).first.try(:value)}.to_a,style:Axlsx::STYLE_THIN_BORDER 
+					sheet.add_row ["Powtórzenie "+repetition.to_s] + samples.map{|s| s.sensory_analyses.where("serie_id=? AND repetition_id=? AND metric_id=?",serie,repetition,definition.metric_id).first.try(:value)}.to_a,style:Axlsx::STYLE_THIN_BORDER 
 				end
 			sheet.add_row []
 		end

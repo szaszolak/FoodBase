@@ -6,15 +6,16 @@ class ImportController < ApplicationController
 		@product = Product.find(params[:id])
 	end
 	def create
+
     	spreadsheet = Roo::Spreadsheet.open(params[:file].path)
 
 	   		ActiveRecord::Base.transaction do
 	   		import_product_xls(spreadsheet.sheet(0));	
 	   		import_recipe_xls(spreadsheet.sheet(1));
 		  		
-		   	count = spreadsheet.sheets.count
+	   		count = spreadsheet.sheets.count	
 			(2..count-1).each do |i|
-	  			import_samples_xls(spreadsheet.sheet(i))
+	  			import_samples_xls(spreadsheet.sheet(i),spreadsheet.sheets[i])
 	   		end
 	   		redirect_to products_path and return
    		end
@@ -54,8 +55,13 @@ class ImportController < ApplicationController
 		@product.name =sheet.row(3)[0]
 		@product.description =sheet.row(3)[1]
 		@product.article_url =sheet.row(3)[2]
-		@product.repetitions = sheet.row(3)[3]
-		@product.samples_count = sheet.row(3)[4]
+		(7..sheet.count).each do |i|
+			definition = @product.experiment_definitions.build
+			definition.metric_id = Metric.find_by_name(sheet.row(i)[0]).id
+			definition.series = sheet.row(i)[1]
+			definition.repetitions = sheet.row(i)[2]
+			definition.save
+		end	
 		@product.save
 	end
 	
@@ -78,26 +84,39 @@ class ImportController < ApplicationController
 		end
 	end
 
-	def import_samples_xls(sheet)
+	def import_samples_xls(sheet,metric)
+		sample_definition_rows_count = 4;
+		analysys_data_start = 4;
+		definition = @product.experiment_definitions.joins(:metric).where("metrics.name=?",metric).first
+		samples_count = sheet.row(2).count
+		(1..samples_count-1).each do |i|
 
-		@additive = nil
-		@sample = nil
-		@additive = Additive.find_by_name(sheet.row(1)[0])
-		@analysis=nil
-		@sample = Sample.new
-		if @additive
-			@sample.product = @product
-			@sample.additive = @additive
-			@sample.amount = sheet.row(2)[0]
-			@sample.temperature = sheet.row(2)[1]
-			@sample.save
-			(1..sheet.first.count).each do |i|  #mały hack wynikający ze struktury danych zwaracanych przez roo => zwraca tablicę tablic zawierających poszczególne wiersze.
-				import_sensory_analysis(sheet.column(i)[2,sheet.column(i).count])
+			@additive = nil
+	
+			@additive = Additive.find_by_name(sheet.row(2)[i])
+			if @additive
+				@sample = @product.samples.build
+				@sample.additive = @additive
+				@sample.amount = sheet.row(3)[i]
+				@sample.temperature = sheet.row(4)[i]
+				@sample.save
+				
+ 				 #mały hack wynikający ze struktury danych zwaracanych przez roo => zwraca tablicę tablic zawierających poszczególne wiersze.
+  				(1..definition.series).each do |serie|
+					import_sensory_analysis(sheet.column(i+1)[analysys_data_start,definition.repetitions],serie,definition) #kolumny numerowane od 1 a nie od zera, viva la spójne indeksowanie!
+					byebug
+					analysys_data_start = (sample_definition_rows_count+ definition.repetitions + 1)*serie+sample_definition_rows_count;
+				end	
+				
+			else
+				@sample.errors[:base]<<"Can not find following additive: "+ sheet.row(1)[0]
+				raise ActiveRecord::Rollback
 			end
-		else
-			@sample.errors[:base]<<"Can not find following ingredient: "+ sheet.row(1)[0]
-			raise ActiveRecord::Rollback
+			
 		end
+
+
+	
 	end
 
 	def clear_attributes_names(names) #remove foreing keys, id and autofilled columns
@@ -110,17 +129,20 @@ class ImportController < ApplicationController
 		result
 	end
 
-	def import_sensory_analysis(column)
+	def import_sensory_analysis(column,serie,definition)
 
-		@metric = Metric.find_by_name(column.first.downcase.strip)
+		metric = definition.metric
 
-		if @metric
-			(1..column.count-1).each do |i|
-				@analysis = @sample.sensory_analyses.build
-				@analysis.repetition_id = i;
-				@analysis.metric = @metric;
-				@analysis.value = column[i];
-				@analysis.save
+		if metric
+			(1..definition.repetitions).each do |i|
+				if column and column[i-1] != nil
+					@analysis = @sample.sensory_analyses.build
+					@analysis.repetition_id = i;
+					@analysis.serie_id = serie
+					@analysis.metric = metric;
+					@analysis.value = column[i-1];
+					@analysis.save
+				end
 			end
 		else
 			@sample.errors[:base]<<"Can not find following metric: "+ column.first.downcase
