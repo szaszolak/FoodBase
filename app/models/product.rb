@@ -9,7 +9,7 @@ class Product < ActiveRecord::Base
 	has_many :sensory_analyses, through: :samples
 	has_many :metrics,through: :samples
 	has_many :additives,through: :samples
-  has_many :experiment_definitions
+  has_many :experiment_definitions, dependent: :destroy
 
 	validates :description, :name,:category_id, presence: true 
 	validates_associated :recipes
