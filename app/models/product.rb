@@ -14,7 +14,7 @@ class Product < ActiveRecord::Base
 	validates :description, :name,:category_id, presence: true 
 	validates_associated :recipes
 	 def pepare_charts(current_user,size="460x512")
-      @path = "app/assets/images/"+current_user.id.to_s"/";
+      @path = "app/assets/images/"+current_user.id.to_s+"/";
       FileUtils.remove_dir @path, true
 
       charts = [] 
