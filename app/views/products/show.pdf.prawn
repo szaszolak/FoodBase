@@ -7,9 +7,7 @@ font "DejaVu"
 text "Produkt: "+@product.name,align: :center, style: :bold, size: 24
 move_down 5
 
-text "Próbki: "+@product.samples_count.to_s
-text "Powtórzenia: "+@product.repetitions.to_s
-move_down 5
+
 
 text "Mierzone cechy:" , style: :bold
 move_down 2
@@ -60,18 +58,46 @@ text "Opis:",style: :bold
 text @product.description
 
 move_down 20
-@product.samples.each do |sample|
-text "Próbka: "+sample.additive.name + " " +sample.amount.to_s+" %",:align => :center, style: :bold
-text "Temperatura smażenia: " +sample.temperature.to_s + "\uc2b0C",:align => :center
-data = [sample.metrics.uniq{|m| m.name}.collect{|x| x.name}]
-if sample.product.repetitions && sample.product.repetitions >=1
-			(1..sample.product.repetitions).each do |i|
-				
-					data.push(sample.sensory_analyses.where(repetition_id: i).map{|x|x.value})
-					
-				
-			end
-		end
+@product.experiment_definitions.each do |definition|
+text "Metryka: "+definition.metric.try(:name) ,:align => :center, style: :bold
+text "Serie: "+definition.series.to_s
+text "Powtórzenia: "+definition.repetitions.to_s
+samples = @product.samples_with_metric(definition.metric_id).distinct
+
+headers = []
+values = {}
+
+(1..definition.series).each do |serie|
+ values[serie] = []
+    (0..definition.repetitions-1).each do |repetition|
+          values[serie][repetition]=[]
+     end
+  end 
+
+samples.each do |sample|
+  headers<<sample.additive.try(:name)+" "+sample.amount.to_s+"%"
+
+  (1..definition.series).each do |serie|
+    (1..definition.repetitions).each do |repetition|
+       analysis = sample.sensory_analyses.where("repetition_id=? AND serie_id=?",repetition,serie).first
+      
+
+         if analysis and analysis.value
+          values[serie][repetition-1]<<analysis.value
+         else
+          values[serie][repetition-1]<<"-"
+         end
+     
+     end
+  end 
+end
+data=[headers]
+values.each_with_index do |serie,i|
+  data<<[{:content=>"seria "+(i+1).to_s,:colspan=>headers.size,:background_color => "66FF66"}]
+  serie[1].each do |value|
+    data<<value
+  end
+end
 table(data,
 :header=>true,
 :position=>:center)do |t|
