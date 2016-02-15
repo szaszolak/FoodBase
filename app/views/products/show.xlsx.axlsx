@@ -15,6 +15,7 @@ wb.add_worksheet(name: "Produkt") do |sheet|
 end
 
 wb.add_worksheet(name: "Receptura") do |sheet|
+
 	names = []
 	vals = []
 
@@ -22,6 +23,12 @@ wb.add_worksheet(name: "Receptura") do |sheet|
 		names << rec.ingredient.name
 		vals << rec.amount
 	end
+
+	if @product.recipes.count == 0
+		names=["sładnik 1","..."]
+		vals=["5","..."]
+	end
+
 	sheet.add_row names
 	sheet.add_row vals
 end
