@@ -28,6 +28,7 @@ class Product < ActiveRecord::Base
         chart = Gruff::Bar.new(size)
         chart.y_axis_label = metric.name
         
+        
         chart.theme = {
            :colors => %w(green orange purple #cccccc), # colors can be described on hex values (#0f0f0f)
           :marker_color => 'grey', # The horizontal lines color
