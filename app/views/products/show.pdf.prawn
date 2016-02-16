@@ -66,12 +66,13 @@ samples = @product.samples_with_metric(definition.metric_id).distinct
 
 headers = []
 values = {}
-
+avgs = {}
 (1..definition.series).each do |serie|
  values[serie] = []
     (0..definition.repetitions-1).each do |repetition|
           values[serie][repetition]=[]
      end
+     avgs[serie] = []
   end 
 
 samples.each do |sample|
@@ -79,7 +80,7 @@ samples.each do |sample|
 
   (1..definition.series).each do |serie|
     (1..definition.repetitions).each do |repetition|
-       analysis = sample.sensory_analyses.where("repetition_id=? AND serie_id=?",repetition,serie).first
+       analysis = sample.sensory_analyses.where("repetition_id=? AND serie_id=? AND metric_id=?",repetition,serie,definition.metric_id).first
       
 
          if analysis and analysis.value
@@ -89,6 +90,15 @@ samples.each do |sample|
          end
      
      end
+     
+     avg = sample.sensory_analyses.where("serie_id=? AND metric_id=?",serie,definition.metric_id).average(:value)
+    
+     if avg
+      avgs[serie] << avg.round(2)
+     else
+       avgs[serie] << "-"
+     end
+     
   end 
 end
 data=[headers]
@@ -97,6 +107,8 @@ values.each_with_index do |serie,i|
   serie[1].each do |value|
     data<<value
   end
+  data<<[{:content=>"średnia dla serii: "+(i+1).to_s,:colspan=>headers.size,:background_color => "d6d6c2"}]
+  data<<avgs[i+1]
 end
 table(data,
 :header=>true,
