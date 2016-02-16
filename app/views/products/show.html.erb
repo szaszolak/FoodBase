@@ -1,3 +1,4 @@
+<script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 
 <div product-id="<%=params[:id]%>"class="panel panel-default">
 <nav class="navbar navbar-default">
@@ -39,10 +40,4 @@
   <%= render partial: 'products/analyse_partials/metric', locals: { definition: definition } %>
 <% end %>
 <%end%>
-
-<%if @charts %>
-<% @charts.each do |chart| %>
- 
-<%=image_tag(asset_path(chart))%>
-<%end%>
-<%end%>
+<%= javascript_include_tag 'charts/bar.js' %>

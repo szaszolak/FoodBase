@@ -18,7 +18,7 @@ class ProductsController < ApplicationController
   
   def show
     respond_to do |format|
-      format.html{ @charts = @product.pepare_charts(current_user)}
+      format.html{ }
       format.xls { response.headers['Content-Disposition'] = "attachment; filename=\"#{@product.name}.xls\""}
       format.xlsx
       format.json
