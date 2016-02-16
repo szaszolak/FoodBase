@@ -24,7 +24,7 @@ class Product < ActiveRecord::Base
       #@product.samples.calculate(:avg,:group)
       avgs = []
       self.metrics.distinct().each do |metric|
-        file = File.new(@path+"#{metric.id}.png","w+")
+        file = File.new(@path+"#{metric.id}"+Time.now.to_i.to_s+".png","w+")
         chart = Gruff::Bar.new(size)
         chart.y_axis_label = metric.name
         
@@ -48,7 +48,7 @@ class Product < ActiveRecord::Base
       #line_chart.labels = {0=>'Value (USD)'}
       chart.write(file.path)
 
-      charts.push current_user.id.to_s+"/"+metric.id.to_s+".png"
+      charts.push current_user.id.to_s+"/"+metric.id.to_s+Time.now.to_i.to_s+".png"
       end
       return charts
     end
