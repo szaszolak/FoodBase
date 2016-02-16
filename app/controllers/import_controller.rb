@@ -111,7 +111,7 @@ class ImportController < ApplicationController
  				 #mały hack wynikający ze struktury danych zwaracanych przez roo => zwraca tablicę tablic zawierających poszczególne wiersze.
   				(1..definition.series).each do |serie|
 					import_sensory_analysis(sheet.column(i+1)[analysys_data_start,definition.repetitions],serie,definition) #kolumny numerowane od 1 a nie od zera, viva la spójne indeksowanie!
-					analysys_data_start = (sample_definition_rows_count+ definition.repetitions + 1)*serie+sample_definition_rows_count;
+					analysys_data_start = (sample_definition_rows_count+ definition.repetitions + 2)*serie+sample_definition_rows_count; #+2 bo ignorowana jest srednia i wiersz przerwy
 				end	
 				
 			else

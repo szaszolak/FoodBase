@@ -44,6 +44,7 @@ wb.add_worksheet(name: definition.metric.try(:name) ) do |sheet|
 				(1..definition.repetitions).each do |repetition| 
 					sheet.add_row ["Powtórzenie "+repetition.to_s] + samples.map{|s| s.sensory_analyses.where("serie_id=? AND repetition_id=? AND metric_id=?",serie,repetition,definition.metric_id).first.try(:value)}.to_a,style:Axlsx::STYLE_THIN_BORDER 
 				end
+			sheet.add_row ["Średnia:"] + samples.map{|s| s.sensory_analyses.where("serie_id=? AND metric_id=?",serie,definition.metric_id).average(:value)}.to_a,style:Axlsx::STYLE_THIN_BORDER 
 			sheet.add_row []
 		end
 	end
