@@ -42,7 +42,7 @@
 
 <%if @charts %>
 <% @charts.each do |chart| %>
-
-<%=image_tag(chart)%>
+ 
+<%=image_tag(asset_path(chart))%>
 <%end%>
 <%end%>
