@@ -37,6 +37,16 @@
 							<%end%>
 						</tr>
 					<%end%>
+					<tr>
+						<td class="avg_cell">Średnia:</td>
+						<% @product.samples_with_metric(definition.metric_id).distinct.each do |sample|%>
+							<%avg = sample.sensory_analyses.where("serie_id=? AND metric_id=?",serie,definition.metric_id).average(:value)%>
+							<%if avg %>
+								<td><%=avg.round(2)%></td>
+								<%else%>
+								<td>-</td>
+								<%end%>
+						<%end%>
 				<%end%>	
 			</tbody>
 		</table>
