@@ -14,9 +14,12 @@ class Product < ActiveRecord::Base
 	validates :description, :name,:category_id, presence: true 
 	validates_associated :recipes
 	 def pepare_charts(current_user,size="460x512")
-      @path = "app/assets/images/"+current_user.id.to_s+"/";
+	 
+	  subdirectory = Time.now.to_i.to_s	
+      @path = "app/assets/images/"+current_user.id.to_s
+   
       FileUtils.remove_dir @path, true
-
+   		@path+="/"+subdirectory+"/"
       charts = [] 
       files = []
       FileUtils.makedirs(@path)
@@ -47,7 +50,7 @@ class Product < ActiveRecord::Base
       #line_chart.labels = {0=>'Value (USD)'}
       chart.write(file.path)
 
-      charts.push current_user.id.to_s+"/"+metric.id.to_s+".png"
+      charts.push current_user.id.to_s+"/"+subdirectory+"/"+metric.id.to_s+".png"
       end
       return charts
     end
