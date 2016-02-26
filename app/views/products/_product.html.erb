@@ -1,6 +1,8 @@
 <%if product%>
  <tr data-link="<%= product_path(product) %>">
- 		<td ><span id=<%= product.id.to_s() +"#" +  product.name %> class='glyphicon glyphicon-plus'/></td>
+ 		<td> 
+  			<input type="checkbox" id=<%= product.id.to_s() %> >
+		</td>
         <td ><%= product.name %></td>
         <td ><%= product.description %></td>
         <td ><%= product.article_url %></td>
