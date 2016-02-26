@@ -3,6 +3,9 @@
         <%= category.name %>
        </td>
        <td>
+        <%= link_to category, remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon" do%><%end%>
+       </td>
+       <td>
         <%= link_to category, remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon" do%><span class="glyphicon glyphicon-remove" aria-hidden="true"> <%end%></span>
        </td>
 </tr>

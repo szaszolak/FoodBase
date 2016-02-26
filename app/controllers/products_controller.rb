@@ -22,7 +22,7 @@ class ProductsController < ApplicationController
       format.xls { response.headers['Content-Disposition'] = "attachment; filename=\"#{@product.name}.xls\""}
       format.xlsx
       format.json
-      format.pdf{ @charts = @product.pepare_charts(current_user,'330x330')}
+      format.pdf{ @charts = @product.pepare_charts(current_user,'720x576')}
     end
   end
 

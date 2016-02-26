@@ -118,5 +118,5 @@ end
 move_down 20
 end
 @charts.each do |chart|
-image "app/assets/images/"+chart,:position => :center
+image "app/assets/images/"+chart,:position => :center, scale: 0.5
 end
