@@ -6,9 +6,9 @@ $(window).on('load',
 				
 				$('#content').append("<div class=\"checkbox\"><label><input id=\"error-bars-switch\" data-toggle=\"toggle\" type=\"checkbox\" data-on=\"Pokaż\" data-off=\"Ukryj\">Odchylenie standardowe</label></div><link href=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css\" rel=\"stylesheet\"><script src=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js\"></script>");
 				
-				width = width>512?512:width;
+				width = width>720?720:width;
 				var height = width/2;
-				var margin = {top: 30, right: 30, bottom: 30, left: 40},
+				var margin = {top: 30, right: 150, bottom: 30, left: 40},
    				width = width - margin.left - margin.right,
     			height = height - margin.top - margin.bottom;
 
@@ -129,6 +129,26 @@ var lineFunction = d3.svg.line()
       .text(function(d) {
        return d.value.toFixed(2);
         });
+
+      var legend = chart.selectAll('.g')
+        .data(competitors)
+        .enter()
+      .append('g')
+        .attr('class', 'legend');
+
+    legend.append('rect')
+        .attr('x', width - 20)
+        .attr('y', function(d, i){ return i *  20;})
+        .attr('width', 10)
+        .attr('height', 10)
+        .style('fill', function(d) { 
+          return c20(prodIds.indexOf(d.id));
+        });
+
+    legend.append('text')
+        .attr('x', width - 8)
+        .attr('y', function(d, i){ return (i *  20) + 9;})
+        .text(function(d){ return d.name; });
 
 }
 
