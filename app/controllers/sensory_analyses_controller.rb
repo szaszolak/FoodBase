@@ -57,10 +57,10 @@ class SensoryAnalysesController < ApplicationController
   def update
     respond_to do |format|
       if @sensory_analysis.update(sensory_analysis_params)
-        format.html { redirect_to @sensory_analysis, notice: 'Sensory analysis was successfully updated.' }
-        format.json { render :show, status: :ok, location: @sensory_analysis }
+       format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), notice: 'Sensory analysis was successfully updated.' }
+        format.json { render :show, status: :created, location: @sensory_analysis }
       else
-        format.html { render :edit }
+        format.html { render :new }
         format.json { render json: @sensory_analysis.errors, status: :unprocessable_entity }
       end
     end

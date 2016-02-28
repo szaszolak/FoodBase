@@ -1,3 +1,26 @@
 // Place all the styles related to the Compare controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.compare{
+
+
+.chart text {
+  //fill: black;
+  font: sans-serif;
+  text-anchor: middle;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+svg{
+	display: block;
+	margin: auto;
+}
+.avg_cell{
+	border-top: 0!important;
+}
+}

@@ -6,7 +6,7 @@
 	</th>	
 	<%@metrics.each do |metric|%>
 		<th metric="<%= metric.id %>">
-			<%=link_to metric.name, controller: 'compare', action: 'show', metric: metric, competitors: @competitors.collect{|c| c.id}.to_json %>
+			<%=link_to metric.name, controller: 'compare', action: 'show', metric: metric, competitors_ids: @competitors.collect{|c| c.id}.to_json %>
 		</th>
 
 	<%end%>
@@ -32,6 +32,3 @@
 </tbody>
 </table>
 
-<!--<% content_for :javascript_includes do %>
-  <%= javascript_include_tag "copmare_products.js" %>
-<% end %>-->
