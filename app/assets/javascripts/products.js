@@ -9,7 +9,8 @@ $('input[type="checkbox"]').on("click",function(){
 	}else{
 		competitors.splice(competitors.indexOf(id),1);
 	}
-	$('.competitors').children().append('<input type="hidden" value="'+JSON.stringify(competitors)+'" name="competitors_ids">')
+	$('.competitors').children('[name="competitors_ids"]').remove()
+	$('.competitors').append('<input type="hidden" value="'+JSON.stringify(competitors)+'" name="competitors_ids">')
 	if(competitors.length > 0)
 		$('.btn_competitiors').prop("disabled",false);
 	else

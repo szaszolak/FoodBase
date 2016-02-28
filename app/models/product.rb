@@ -7,7 +7,7 @@ class Product < ActiveRecord::Base
 	has_many :ingredients, through: :recipes
 	has_many :samples, dependent: :destroy
 	has_many :sensory_analyses, through: :samples
-	has_many :metrics,through: :samples
+	has_many :metrics,through: :experiment_definitions
 	has_many :additives,through: :samples
   has_many :experiment_definitions, dependent: :destroy
 

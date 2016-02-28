@@ -26,11 +26,7 @@ class ProductsController < ApplicationController
     end
   end
 
-  #GET /products/compare
-  def compare
-    get_compared_products;
-    get_max_recipies_count
-  end
+
   # GET /products/new
   def new
     @product = Product.new
@@ -40,8 +36,7 @@ class ProductsController < ApplicationController
   def edit
   end
 
-  def newImport
-  end
+
 
 
   # POST /products
@@ -97,11 +92,9 @@ class ProductsController < ApplicationController
       params.require(:product).permit(:name, :description, :article_url, :category_id,:repetitions,:samples_count)
     end
 
-    def get_compared_products
-     # byebug
-      ids = JSON.parse(params.require(:competitors_ids))
-      @competitors = Product.find(ids)
-    end
+  
+
+
 
     def get_max_recipies_count
      @maxReciepiesCnt =  @competitors.collect {|comp| comp.recipes.count}.max

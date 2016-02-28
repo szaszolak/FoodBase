@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
 
 
+  get 'compare/index'
+  get 'compare/show'
+
+
   resources :metrics
   resources :additives
 
