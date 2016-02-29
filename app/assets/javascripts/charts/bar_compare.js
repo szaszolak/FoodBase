@@ -60,9 +60,13 @@ $(window).on('load',
 })
 		
 
-function draw(data,chart,title,x,y,xAxis,yAxis,competitors){
+function draw(data,chart,title,x,y,xAxis,yAxis){
 		_.each(data,type);
-    var prodIds = _.map(competitors,function(c){return c.id});
+
+    var prodIds = _.uniq(_.map(data,function(c){return c.prod_id}));
+    var prods = []
+     _.each(prodIds,function(c){prods.push({id: c, name:_.find(data,function(x){return x.prod_id == c}).prod_name})});
+
 	  x.domain(data.map(function(d) { return d.prod_id+'#'+d.name; }))
  	  y.domain([0, d3.max(data, function(d) { return d.value + d.deviation; })])
 		var c20 = d3.scale.category20();			
@@ -130,8 +134,8 @@ var lineFunction = d3.svg.line()
        return d.value.toFixed(2);
         });
 
-      var legend = chart.selectAll('.g')
-        .data(competitors)
+  var legend = chart.selectAll('.g')
+        .data(prods)
         .enter()
       .append('g')
         .attr('class', 'legend');
@@ -150,6 +154,15 @@ var lineFunction = d3.svg.line()
         .attr('y', function(d, i){ return (i *  20) + 9;})
         .text(function(d){ return d.name; });
 
+  if(data.length<=0)
+  {
+    chart.append("text")
+        .attr("x", (width / 2))             
+        .attr("y", height/2)
+        .attr("text-anchor", "middle")  
+        .style("font-size", "16px") 
+        .text("Brak danych!");
+  }
 }
 
 function calculateOuterPadding(barsCount,width,padding){
