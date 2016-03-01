@@ -1,24 +1,24 @@
-
-
-var hide_recipes = function(){
-	$('.recipe').css('display','none');
-	$('#recipe_toggler').removeClass("glyphicon-chevron-up");
-	$('#recipe_toggler').addClass("glyphicon-chevron-down");
+// Place all the behaviors and hooks related to the matching controller here.
+// All this logic will automatically be available in application.js.
+function ready(){
+		alert("x")
+	reset();
+function handlerIn () {
+	$('[metric="'+$( this ).attr('metric')+'"]').css('background-color', '#b3ffb3');
+	alert($( this ).attr('metric'))
 }
 
-var show_recipes = function(){
-		$('.recipe').css('display','');
-	$('#recipe_toggler').addClass("glyphicon-chevron-up");
-	$('#recipe_toggler').removeClass("glyphicon-chevron-down");
+function handlerOut () {
+	$('[metric="'+$( this ).attr('metric')+'"]').css('background-color', 'white');
 }
 
-var toggle_recipes_visibility = function(){
-	if($('#recipe_toggler').hasClass('glyphicon-chevron-down')){
-		show_recipes();
-	}else
-	{
-		hide_recipes();
-	}
+$('th[metric]').hover( handlerIn, handlerOut )
+
 }
 
-$(document).on("click",'#recipe_toggler',toggle_recipes_visibility);
+$(document).ready(ready)
+$(document).on('page:load', ready);
+
+function reset(){
+	$('th[metric]').off()
+}
