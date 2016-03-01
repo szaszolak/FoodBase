@@ -5,10 +5,9 @@ reset();
 $('input[type="checkbox"]').on("click",function(){
 	var id = parseInt($(this).attr('id'));
 	if($.inArray(id, competitors) < 0){
-		alert("push "+id)
 		competitors.push(id);
 	}else{
-			alert("pop "+id)
+	
 		competitors.splice(competitors.indexOf(id),1);
 	}
 	$('.competitors').children('[name="competitors_ids"]').remove()
