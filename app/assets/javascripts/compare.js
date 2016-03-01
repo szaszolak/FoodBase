@@ -15,6 +15,7 @@ function handlerOut () {
 $('th[metric]').hover( handlerIn, handlerOut )
 
 }
+alert("sdsadx")
 
 $(document).ready(ready)
 $(document).on('page:load', ready);
