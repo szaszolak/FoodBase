@@ -1,7 +1,7 @@
 competitors = []
  function ready(){
   
-
+reset();
 $('input[type="checkbox"]').on("click",function(){
 	var id = parseInt($(this).attr('id'));
 	if($.inArray(id, competitors) < 0){
@@ -29,9 +29,11 @@ dataElements.hover(hoverHandler,hoverHandler);
 $('.btn_competitiors').prop("disabled",true);
 };
 
-$(document).ready(ready);
+//$(document).ready(ready);
 $(document).on('page:load', ready);
 
 function reset(){
 	$('tr[data-link]').children(':nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5),:nth-child(6)').off();
+	$('input[type="checkbox"]').off();
+	
 }
