@@ -1,5 +1,5 @@
-$(window).on('load',
-	function() {
+//$(window).on('load',
+	//function() {
 
 				//setup canvas for chart
 				var width = $('#content').width();
@@ -184,4 +184,4 @@ function toggleErrorBars(){
 
 
 
-});
+//});
