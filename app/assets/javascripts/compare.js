@@ -1,10 +1,11 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 function ready(){
+		alert("x")
 	reset();
 function handlerIn () {
 	$('[metric="'+$( this ).attr('metric')+'"]').css('background-color', '#b3ffb3');
-	alert(.attr('metric'))
+	alert($( this ).attr('metric'))
 }
 
 function handlerOut () {
