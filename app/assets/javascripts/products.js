@@ -27,8 +27,6 @@ dataElements.hover(hoverHandler,hoverHandler);
 $('.btn_competitiors').prop("disabled",true);
 };
 
-
-
 $(document).ready(ready);
 $(document).on('page:load', ready);
 
