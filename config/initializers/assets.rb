@@ -10,3 +10,6 @@ Rails.application.config.assets.version = '1.0'
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
  Rails.application.config.assets.precompile += %w( charts/bar.js )
  Rails.application.config.assets.precompile += %w( charts/bar_compare.js )
+['additives','application','categories', 'compare', 'eperiment_definitions', 'import', 'ingredients', 'media' ,'metrics', 'products', 'recipes','samples','sensory_analyses'].each do |controller|
+  Rails.application.config.assets.precompile += [controller+".js"]
+end

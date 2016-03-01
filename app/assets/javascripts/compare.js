@@ -1,11 +1,9 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
 function ready(){
-		alert("x")
 	reset();
 function handlerIn () {
 	$('[metric="'+$( this ).attr('metric')+'"]').css('background-color', '#b3ffb3');
-	alert($( this ).attr('metric'))
 }
 
 function handlerOut () {
@@ -15,10 +13,9 @@ function handlerOut () {
 $('th[metric]').hover( handlerIn, handlerOut )
 
 }
-alert("1")
+
 
 $(document).ready(ready)
-alert("2")
 $(document).on('page:load', ready);
 
 function reset(){
