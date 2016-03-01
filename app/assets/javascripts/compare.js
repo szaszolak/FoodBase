@@ -4,6 +4,7 @@ function ready(){
 	reset();
 function handlerIn () {
 	$('[metric="'+$( this ).attr('metric')+'"]').css('background-color', '#b3ffb3');
+	alert(.attr('metric'))
 }
 
 function handlerOut () {
