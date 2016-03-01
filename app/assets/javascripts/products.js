@@ -1,7 +1,7 @@
 competitors = []
  function ready(){
   
-debugger;
+alert("xxxx")
 $('input[type="checkbox"]').on("click",function(){
 	var id = parseInt($(this).attr('id'));
 	if($.inArray(id, competitors) < 0){
