@@ -15,9 +15,10 @@ function handlerOut () {
 $('th[metric]').hover( handlerIn, handlerOut )
 
 }
-alert("sdsadx")
+alert("1")
 
 $(document).ready(ready)
+alert("2")
 $(document).on('page:load', ready);
 
 function reset(){
