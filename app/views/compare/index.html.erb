@@ -1,7 +1,7 @@
 <script src="//d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <div id="charts"></div>
 <%= javascript_include_tag 'charts/bar_compare.js' %>
-  
+<% if @competitors.count > 0 %>  
 <table class='table table-bordered'>
 <thead>
 	<tr>
@@ -34,4 +34,6 @@
 	<%end%>
 </tbody>
 </table>
-
+<%else%>
+<strong>Nie wybrano żadnych eksperymentów do porównania</strong>
+<%end%>

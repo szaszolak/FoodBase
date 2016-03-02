@@ -19,9 +19,14 @@ class CompareController < ApplicationController
 
   private
     def get_compared_products
-      ids = JSON.parse(params.require(:competitors_ids))
-      @competitors = Product.find(ids)
-      @competitors.sort_by! {|x| x.metrics.count}.reverse!
+    	begin
+    		  ids = JSON.parse(params.require(:competitors_ids))
+     		 @competitors = Product.find(ids)
+      		 @competitors.sort_by! {|x| x.metrics.count}.reverse!
+    	rescue Exception => e
+    		@competitors = []
+    	end
+    
     end
 
     def get_compared_products_metrics
