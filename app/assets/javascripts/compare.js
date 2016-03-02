@@ -1,7 +1,6 @@
 // Place all the behaviors and hooks related to the matching controller here.
 // All this logic will automatically be available in application.js.
-function ready(){
-	reset();
+$('.compare.index').ready(function(){
 function handlerIn () {
 	$('[metric="'+$( this ).attr('metric')+'"]').css('background-color', '#b3ffb3');
 }
@@ -15,12 +14,13 @@ $('th[metric]').on('click',
 	function(){ $('#charts').children().remove();
 	bar_chart($( this ).attr('data_url'));
 	 });
-}
 
 
-$(document).ready(ready)
-$(document).on('page:load', ready);
+
+
+//$(document).on('page:load', ready);
 
 function reset(){
 	$('th[metric]').off()
 }
+});

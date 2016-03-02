@@ -1,7 +1,12 @@
+$('.products.index').ready(function(){
 competitors = []
- function ready(){
- alert("!"); 
-reset();
+products_ready();
+ 
+});
+
+function products_ready(){
+
+
 $('input[type="checkbox"]').on("click",function(){
 	var id = parseInt($(this).attr('id'));
 	if($.inArray(id, competitors) < 0){
@@ -30,11 +35,9 @@ $('.btn_competitiors').prop("disabled",true);
 
 
 
-function reset(){
+function product_reset(){
+	competitors = []
 	$('tr[data-link]').children(':nth-child(2),:nth-child(3),:nth-child(4),:nth-child(5),:nth-child(6)').off();
 	$('input[type="checkbox"]').off();
 	
 }
-$(document).ready(ready);
-$(document).on('page:load', ready);
-ready();

@@ -1,5 +1,4 @@
-//$(window).on('load',
-	//function() {
+$('.compare.show').ready(function(){
 
 				//setup canvas for chart
 				var width = $('#content').width();
@@ -182,6 +181,6 @@ function toggleErrorBars(){
 		$('.error-bar').css('display','inline');
 }
 
+});
 
 
-//});
