@@ -2,22 +2,9 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .compare{
-a {
-
-  background-color: none;
-  color: #333;
-  
-  &:visited {
-  background-color: none;
-  color: #333;
-  }
-
-  &:hover {
-    color: '#b3ffb3';
-    background-color: transparent;
-  }
+th{
+  cursor: pointer;
 }
-
 .chart text {
   //fill: black;
   font: sans-serif;

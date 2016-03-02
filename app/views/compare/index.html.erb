@@ -9,7 +9,7 @@
 	</th>	
 	<%@metrics.each do |metric|%>
 		<th metric="<%= metric.id %>" data_url="<%=url_for controller: 'compare', action: 'show',only_path: false, metric: metric, competitors_ids: @competitors.collect{|c| c.id}.to_json %>">
-			<%=link_to metric.name, controller: 'compare', action: 'show', metric: metric, competitors_ids: @competitors.collect{|c| c.id}.to_json %>
+			<%= metric.name %>
 		</th>
 
 	<%end%>
