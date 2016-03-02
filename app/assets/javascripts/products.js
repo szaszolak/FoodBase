@@ -36,3 +36,4 @@ function reset(){
 	$('input[type="checkbox"]').off();
 	
 }
+ready();

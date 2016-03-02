@@ -1,11 +1,10 @@
 //$(window).on('load',
 	//function() {
-function bar_chart(url){
-				//setup canvas for chart
 
-				var width = $('#charts').width();
-				$('#charts').css('display','none');
-		//		$('#charts').append("<div class=\"checkbox\"><label><input id=\"error-bars-switch\" data-toggle=\"toggle\" type=\"checkbox\" data-on=\"Pokaż\" data-off=\"Ukryj\">Odchylenie standardowe</label></div><link href=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css\" rel=\"stylesheet\"><script src=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js\"></script>");
+				//setup canvas for chart
+				var width = $('#content').width();
+				
+				$('#content').append("<div class=\"checkbox\"><label><input id=\"error-bars-switch\" data-toggle=\"toggle\" type=\"checkbox\" data-on=\"Pokaż\" data-off=\"Ukryj\">Odchylenie standardowe</label></div><link href=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css\" rel=\"stylesheet\"><script src=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js\"></script>");
 				
 				width = width>720?720:width;
 				var height = width/2;
@@ -16,15 +15,15 @@ function bar_chart(url){
 
 
 
-				d3.json(url)
+				d3.json(window.location.href)
         .header("Content-Type", "application/json")
         .header("Accept", "application/json")
         .get(function(error,data){
 						var i = 0;
 					//	_.each(data.metrics,function(metric){
 						
-							var div = '<svg class="chart chart-'+i+'" display="none"></svg>'
-							$('#charts').append(div);
+							var div = '<svg class="chart chart-'+i+'"></svg>'
+							$('#content').append(div);
 
 							var chart = d3.select(".chart-"+i)
 						   		 .attr("width", width + margin.left + margin.right)
@@ -57,7 +56,7 @@ function bar_chart(url){
 						 $('#error-bars-switch').on('change',  function(e) {
 							toggleErrorBars();
     						});
-$('#charts').show('quick');
+
 })
 
 
@@ -184,5 +183,5 @@ function toggleErrorBars(){
 }
 
 
-}
+
 //});
