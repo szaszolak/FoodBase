@@ -11,6 +11,6 @@ Rails.application.config.assets.version = '1.0'
  Rails.application.config.assets.precompile += %w( charts/bar.js )
  Rails.application.config.assets.precompile += %w( charts/bar_compare.js )
  Rails.application.config.assets.precompile += %w( compare_show.js )
-['additives','application','categories', 'compare', 'experiment_definitions', 'import', 'ingredients', 'media' ,'metrics', 'products', 'recipes','samples','sensory_analyses'].each do |controller|
+['additives','application','categories', 'compare', 'experiment_definitions', 'import', 'ingredients', 'media' ,'metrics', 'products', 'recipes','samples','sensory_analyses','pages'].each do |controller|
  Rails.application.config.assets.precompile += [controller+".js"]
 end

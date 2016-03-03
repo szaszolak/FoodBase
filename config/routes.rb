@@ -2,6 +2,8 @@ Rails.application.routes.draw do
 
 
 
+  get 'pages/home'
+
   get 'compare/index'
   get 'compare/show'
 
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-   root 'products#index'
+   root 'pages#home'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
