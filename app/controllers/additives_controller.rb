@@ -28,7 +28,7 @@ class AdditivesController < ApplicationController
 
     respond_to do |format|
       if @additive.save
-        format.html { redirect_to @additive, notice: 'Additive was successfully created.' }
+        format.html { redirect_to @additive, success: 'Additive was successfully created.' }
         format.json { render :show, status: :created, location: @additive }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class AdditivesController < ApplicationController
   def update
     respond_to do |format|
       if @additive.update(additive_params)
-        format.html { redirect_to @additive, notice: 'Additive was successfully updated.' }
+        format.html { redirect_to @additive, success: 'Additive was successfully updated.' }
         format.json { render :show, status: :ok, location: @additive }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class AdditivesController < ApplicationController
   def destroy
     @additive.destroy
     respond_to do |format|
-      format.html { redirect_to additives_url, notice: 'Additive was successfully destroyed.' }
+      format.html { redirect_to additives_url, success: 'Additive was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

@@ -10,10 +10,10 @@ class ExperimentDefinitionsController < ApplicationController
   
     respond_to do |format|
       if @definition.save
-        format.html{ redirect_to product_experiment_definitions_path(@product), notice: 'Description was successfully created.' }
+        format.html{ redirect_to product_experiment_definitions_path(@product), success: 'Description was successfully created.' }
         #format.json { render :show, status: :created, location: @product }
       else
-        format.html { render :new }
+        format.html { redirect_to product_experiment_definitions_path(@product), danger: 'Błąd zapisu: '+ @definition.errors.to_a.join(", ") }
         format.json { render json: @product.errors, status: :unprocessable_entity }
       end
     end
@@ -29,10 +29,10 @@ class ExperimentDefinitionsController < ApplicationController
      respond_to do |format|
      if definition.destroy
         @defintions = @product.experiment_definitions.all
-        format.html{ redirect_to new_product_experiment_definition_path(@product), notice: 'definition was destroyed' }
+        format.html{ redirect_to new_product_experiment_definition_path(@product), success: 'definition was destroyed' }
         format.js {}
       else
-        format.html { render :new }
+        format.html { redirect_to new_product_experiment_definition_path(@product),  danger: 'Błąd zapisu: '+ @defintion.errors.to_a.join(", ")}
       end
     end
   end

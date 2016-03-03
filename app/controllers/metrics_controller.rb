@@ -28,7 +28,7 @@ class MetricsController < ApplicationController
 
     respond_to do |format|
       if @metric.save
-        format.html { redirect_to @metric, notice: 'Metric was successfully created.' }
+        format.html { redirect_to @metric, success: 'Metric was successfully created.' }
         format.json { render :show, status: :created, location: @metric }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MetricsController < ApplicationController
   def update
     respond_to do |format|
       if @metric.update(metric_params)
-        format.html { redirect_to @metric, notice: 'Metric was successfully updated.' }
+        format.html { redirect_to @metric, success: 'Metric was successfully updated.' }
         format.json { render :show, status: :ok, location: @metric }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class MetricsController < ApplicationController
   def destroy
     @metric.destroy
     respond_to do |format|
-      format.html { redirect_to metrics_url, notice: 'Metric was successfully destroyed.' }
+      format.html { redirect_to metrics_url, success: 'Metric was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

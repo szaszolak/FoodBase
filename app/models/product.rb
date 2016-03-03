@@ -13,6 +13,7 @@ class Product < ActiveRecord::Base
 
 	validates :description, :name,:category_id, presence: true 
 	validates_associated :recipes
+
 	 def pepare_charts(current_user,size="460x512")
 	 
 	  subdirectory = Time.now.to_i.to_s	

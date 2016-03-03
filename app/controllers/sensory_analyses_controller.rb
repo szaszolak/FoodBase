@@ -43,7 +43,7 @@ class SensoryAnalysesController < ApplicationController
 
     respond_to do |format|
       if @sensory_analysis.save
-        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), notice: 'Sensory analysis was successfully created.' }
+        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), success: 'Sensory analysis was successfully created.' }
         format.json { render :show, status: :created, location: @sensory_analysis }
       else
         format.html { render :new }
@@ -57,7 +57,7 @@ class SensoryAnalysesController < ApplicationController
   def update
     respond_to do |format|
       if @sensory_analysis.update(sensory_analysis_params)
-       format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), notice: 'Sensory analysis was successfully updated.' }
+       format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), success: 'Sensory analysis was successfully updated.' }
         format.json { render :show, status: :created, location: @sensory_analysis }
       else
         format.html { render :new }
@@ -71,7 +71,7 @@ class SensoryAnalysesController < ApplicationController
   def destroy
     @sensory_analysis.destroy
     respond_to do |format|
-      format.html { redirect_to sensory_analyses_url, notice: 'Sensory analysis was successfully destroyed.' }
+      format.html { redirect_to sensory_analyses_url, success: 'Sensory analysis was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

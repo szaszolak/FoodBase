@@ -28,7 +28,7 @@ class SamplesController < ApplicationController
 
     respond_to do |format|
       if @sample.save
-        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), notice: 'Sample was successfully created.' }
+        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), success: 'Sample was successfully created.' }
         format.json { render :show, status: :created, location: @sample }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class SamplesController < ApplicationController
   def update
     respond_to do |format|
       if @sample.update(sample_params)
-        format.html { redirect_to product_samples_path(@product,@sample), notice: 'Sample was successfully updated.' }
+        format.html { redirect_to product_samples_path(@product,@sample), success: 'Sample was successfully updated.' }
         format.json { render :show, status: :ok, location: @sample }
       else
         format.html { render :edit }
@@ -56,7 +56,7 @@ class SamplesController < ApplicationController
   def destroy
     @sample.destroy
     respond_to do |format|
-      format.html { redirect_to samples_url, notice: 'Sample was successfully destroyed.' }
+      format.html { redirect_to samples_url, success: 'Sample was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

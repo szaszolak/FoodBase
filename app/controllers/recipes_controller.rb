@@ -11,14 +11,17 @@ class RecipesController < ApplicationController
     @recipe.amount = recipe_params[:amount]
     @recipe.product_id = params[:product_id]
     @recipe.ingredient_id = recipe_params[:ingredient_id]
+
     respond_to do |format|
+       
       if @recipe.save
         format.html{ redirect_to product_recipes_path(@product)}
         format.js {}
         format.json { render :show, status: :ok, location: @product }
       else
-        format.html { render action: "index", notice: 'error.' }
+        format.html { redirect_to product_recipes_path(@product), danger: "błąd zapisu: " + @recipe.errors.to_a.join(", ") }
         format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.js {  flash[:danger] = "błąd zapisu" }
       end
     end
   end
