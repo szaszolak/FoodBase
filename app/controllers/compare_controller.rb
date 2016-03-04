@@ -5,17 +5,25 @@ class CompareController < ApplicationController
   end
 
   	def show
-	get_compared_products
-  		@metric = Metric.find(params.require(:metric))
+	   get_compared_products
+  	 @metric = Metric.find(params.require(:metric))
   
   		 respond_to do |format|
 	      format.html{ }
-	      format.json { 
-	      		get_compared_products
+	      format.json {  	
 	      		get_chart_data
 	      	 }
 	    end
 	end
+
+  def get_chart
+
+     get_compared_products
+     @metric = Metric.find(params.require(:metric))
+     get_chart_data
+     pepare_charts current_user
+     send_file @path+"#{@metric.id}.png", type: "image/gif", disposition: "inline"
+  end
 
   private
     def get_compared_products
@@ -58,4 +66,38 @@ class CompareController < ApplicationController
 	  	end
 	  
 	end
+
+  def pepare_charts(current_user,size="460x512")
+   
+    subdirectory = Time.now.to_i.to_s 
+      @path = "app/assets/images/"+current_user.id.to_s
+   
+      FileUtils.remove_dir @path, true
+      @path+="/"+subdirectory+"/"
+      charts = [] 
+      files = []
+      FileUtils.makedirs(@path)
+        
+      #@product.samples.calculate(:avg,:group)
+
+      
+        file = File.new(@path+"#{@metric.id}.png","w+")
+        chart = Gruff::Bar.new(size)
+        chart.y_axis_label = @metric.name
+        
+        chart.theme = {
+           :colors => %w(green orange purple #cccccc), # colors can be described on hex values (#0f0f0f)
+          :marker_color => 'grey', # The horizontal lines color
+          :background_colors =>'white' 
+        } 
+         chart.title = @metric.name
+          @chart_data.each do |data|
+            chart.data(data[:prod_name]+" "+data[:name],data[:value])
+          end
+
+        vals =  @chart_data.map{|x|x[:value].to_f}
+       chart.maximum_value = vals.max * 1.1
+       chart.minimum_value = vals.min * 0.8
+       chart.write(file.path)    
+    end
 end

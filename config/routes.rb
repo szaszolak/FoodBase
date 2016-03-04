@@ -6,7 +6,7 @@ Rails.application.routes.draw do
 
   get 'compare/index'
   get 'compare/show'
-
+  get 'compare/chart' => 'compare#get_chart'
 
   resources :metrics
   resources :additives

@@ -17,7 +17,6 @@ $('th[metric]').on('click',
 
 
 
-
 //$(document).on('page:load', ready);
 
 function reset(){
