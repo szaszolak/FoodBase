@@ -18,15 +18,15 @@ class CompareController < ApplicationController
 
   def get_chart
     begin
-     get_compared_products
-     @metric = Metric.find(params.require(:metric))
-     get_chart_data
-     pepare_charts current_user
-     send_file @path+"#{@metric.id}.png", type: "image/gif", disposition: "inline"
-     rescue  Exception => e 
-     flash[:danger] ="Nie udało się wygenerować wersji jpg wykresu. " + e.message 
-     redirect_to  action: 'index', competitors_ids: params.require(:competitors_ids)
-     end
+         get_compared_products
+         @metric = Metric.find(params.require(:metric))
+         get_chart_data
+         pepare_charts current_user
+        send_file @path+"#{@metric.id}.png", type: "image/gif", disposition: "inline"
+    rescue  Exception => e 
+       flash[:danger] ="Nie udało się wygenerować wersji jpg wykresu."
+        redirect_to  action: 'index', competitors_ids: params.require(:competitors_ids)
+    end
   end
 
   private
