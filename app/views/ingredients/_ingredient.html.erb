@@ -1,8 +1,6 @@
 <%if ingredient%>
  <tr>
         <td><%= ingredient.name %></td>
-        <td><%= link_to 'Show', ingredient %></td>
-        <td><%= link_to 'Edit', edit_ingredient_path(ingredient) %></td>
-        <td><%= link_to 'Destroy', ingredient, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td> <%= link_to ingredient, remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon"  do%><span class="glyphicon glyphicon-remove" aria-hidden="true"  data-toggle="tooltip" data-placement="right" title="usuń"> <%end%></span></td>
 </tr>
 <%end%>

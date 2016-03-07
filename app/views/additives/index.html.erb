@@ -1,22 +1,16 @@
-<p id="notice"><%= notice %></p>
-
-<h1>Listing Additives</h1>
-
-<table>
+<table class="table">
   <thead>
     <tr>
-      <th>Name</th>
-      <th colspan="3"></th>
-    </tr>
+      <th>Produkty</th>
+      <th> <%= link_to new_additive_path,method: :get, class: "glyphicon" do%><span class="glyphicon glyphicon-plus" aria-hidden="true" data-toggle="tooltip" data-placement="right" title="dodaj"><%end%> </th>
+  </tr>
   </thead>
 
   <tbody>
     <% @additives.each do |additive| %>
       <tr>
         <td><%= additive.name %></td>
-        <td><%= link_to 'Show', additive %></td>
-        <td><%= link_to 'Edit', edit_additive_path(additive) %></td>
-        <td><%= link_to 'Destroy', additive, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td> <%= link_to additive, remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon"  do%><span class="glyphicon glyphicon-remove" aria-hidden="true"  data-toggle="tooltip" data-placement="right" title="usuń"> <%end%></span></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,4 +18,4 @@
 
 <br>
 
-<%= link_to 'New Additive', new_additive_path %>
+
