@@ -6,6 +6,7 @@ class SensoryAnalysesController < ApplicationController
   # GET /sensory_analyses.json
   def index
     if params[:metric_id]
+      @metric =  Metric.find(params[:metric_id])
       @sensory_analyses = @sample.sensory_analyses.where("metric_id=?",params[:metric_id])
       @definition = @product.experiment_definitions.where("metric_id=?",params[:metric_id]).first
 
@@ -41,9 +42,11 @@ class SensoryAnalysesController < ApplicationController
   def create
     @sensory_analysis = @sample.sensory_analyses.build(sensory_analysis_params)
 
+    @metric =  Metric.find( @sensory_analysis.metric.id)
     respond_to do |format|
       if @sensory_analysis.save
-        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), success: 'Sensory analysis was successfully created.' }
+         flash[:success] = 'Sensory analysis was successfully created.'
+        format.html { redirect_to  action: 'index', metric_id: @metric}
         format.json { render :show, status: :created, location: @sensory_analysis }
       else
         format.html { render :new }
@@ -57,7 +60,10 @@ class SensoryAnalysesController < ApplicationController
   def update
     respond_to do |format|
       if @sensory_analysis.update(sensory_analysis_params)
-       format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), success: 'Sensory analysis was successfully updated.' }
+         @metric =  Metric.find( @sensory_analysis.metric.id)
+         flash[:success] =  'Sensory analysis was successfully updated.' 
+         
+        format.html { redirect_to action: 'index', metric_id: @metric }
         format.json { render :show, status: :created, location: @sensory_analysis }
       else
         format.html { render :new }

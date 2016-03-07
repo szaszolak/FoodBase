@@ -4,7 +4,10 @@ class SamplesController < ApplicationController
   # GET /samples
   # GET /samples.json
   def index
+
     @samples = @product.samples
+    @sample = Sample.new
+    @sample.product_id = @product.id
   end
 
   # GET /samples/1
@@ -28,7 +31,7 @@ class SamplesController < ApplicationController
 
     respond_to do |format|
       if @sample.save
-        format.html { redirect_to product_sample_sensory_analyses_path(@product,@sample), success: 'Sample was successfully created.' }
+        format.html { redirect_to product_samples_path(@product,@sample), success: 'Sample was successfully created.' }
         format.json { render :show, status: :created, location: @sample }
       else
         format.html { render :new }
@@ -56,7 +59,7 @@ class SamplesController < ApplicationController
   def destroy
     @sample.destroy
     respond_to do |format|
-      format.html { redirect_to samples_url, success: 'Sample was successfully destroyed.' }
+      format.html { redirect_to product_samples_path(@product,@sample), success: 'Sample was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

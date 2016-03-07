@@ -4,9 +4,7 @@
 <table class="table">
   <thead>
     <tr>
-      <th>Dodatek</th>
-      <th>Ilość</th>
-      <th>Temperatura</th>
+      <%= render 'table_header_form' %>
 
     </tr>
   </thead>
@@ -17,8 +15,9 @@
         <td><%= sample.additive.try(:name) %></td>
         <td><%= sample.amount %></td>
         <td><%= sample.temperature %></td>
-        <td><%= link_to 'Edytuj',edit_product_sample_path(@product,sample)%></td>
         <td><%= link_to 'Pokaż',product_sample_sensory_analyses_path(@product,sample)%></td>
+        <td><%= link_to 'Edytuj',edit_product_sample_path(@product,sample)%></td>
+        <td><%= link_to 'Usuń',product_sample_path(@product,sample),method: :delete, data: { confirm: 'Are you sure?' } %></td>
        
       </tr>
     <% end %>
