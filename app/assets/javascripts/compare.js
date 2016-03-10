@@ -9,6 +9,10 @@ function handlerOut () {
 	$('[metric="'+$( this ).attr('metric')+'"]').css('background-color', 'white');
 }
 
+function reset(){
+	$('th[metric]').off()
+}
+
 $('th[metric]').hover( handlerIn, handlerOut )
 $('th[metric]').on('click',
 	function(){ $('#charts').children().remove();
@@ -19,7 +23,35 @@ $('th[metric]').on('click',
 
 //$(document).on('page:load', ready);
 
-function reset(){
-	$('th[metric]').off()
-}
+
+
+d3.select("#save").on("click", function(){
+  var html = d3.select("svg")
+        .attr("version", 1.1)
+        .attr("xmlns", "http://www.w3.org/2000/svg")
+        .node().parentNode.innerHTML;
+
+  //console.log(html);
+  var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+
+  var canvas = document.querySelector("canvas"),
+	  context = canvas.getContext("2d");
+
+  var image = new Image;
+  image.src = imgsrc;
+  image.onload = function() {
+	  context.drawImage(image, 0, 0);
+
+	  var canvasdata = canvas.toDataURL("image/png");
+
+	  var a = document.createElement("a");
+	  a.download = "sample.png";
+	  a.href = canvasdata;
+	  document.body.appendChild(a);
+	  a.click();
+	  context.clearRect(0, 0, canvas.width, canvas.height);
+  };
+
 });
+});
+
