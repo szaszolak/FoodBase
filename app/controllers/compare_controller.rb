@@ -125,6 +125,7 @@ class CompareController < ApplicationController
         chart.y_axis_label = @metric.name
         chart.sort = false 
 
+        chart.show_labels_for_bar_values = true
         chart.theme = {
            :colors => %w(green orange purple #cccccc), # colors can be described on hex values (#0f0f0f)
           :marker_color => 'grey', # The horizontal lines color
@@ -133,16 +134,31 @@ class CompareController < ApplicationController
 
         labels = {}
          chart.title = @metric.name
-          @chart_data.each_with_index do |data,index|
+         serie = []
+         
+         prod = @chart_data.first[:prod_name]  
+         prod_id = @chart_data.first[:prod_id]  
+          @chart_data.each_with_index do |data,index| 
+            labels[index]= data[:name]
+
+            if data[:prod_id].eql? prod_id
+              serie<<data[:value]
+            else
+            	byebug
+            	chart.data(prod,serie,colors[data[:prod_id]])
+            	serie = []
+                serie<<data[:value]
+                prod = data[:prod_name]  
+                prod_id = data[:prod_id]  
+            end
            
-            labels[index]= data[:prod_name]+" "+data[:name]
-            chart.data(data[:prod_name]+" "+data[:name],data[:value],colors[data[:prod_id]])
           end
-        
+       
         vals =  @chart_data.map{|x|x[:value].to_f}
        chart.maximum_value = vals.max * 1.1
        chart.minimum_value = vals.min * 0.8
-
+       byebug
+       chart.labels = labels
        chart.write(file.path)    
     end
 end

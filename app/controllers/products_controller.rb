@@ -102,9 +102,9 @@ class ProductsController < ApplicationController
 
     def apply_filters
       if params[:category_id].present?
-        @products = Product.where(category_id:params.require(:category_id)).all
-        if params.permit(:ingredient_id) and @products
-          @products = @products.all {|product| product.ingredients.find(params.require(:ingredient_id))}
+        @products = Product.where(category_id:params.require(:category_id)).all.to_a
+        if params[:ingredient_id].present? and @products
+          @products = @products.delete_if{|product| !(product.ingredients.any?{|ing| ing.id.eql? params.require(:ingredient_id).to_i})}
         end
       elsif params[:ingredient_id].present?
         @products = Product.joins(:recipes).where("recipes.ingredient_id = ?",params.require(:ingredient_id))
