@@ -4,7 +4,7 @@ function bar_chart(url){
 				//setup canvas for chart
 
 				var width = $('#charts').width();
-				$('#charts').css('display','none');
+			   prepare();
       //  $('#charts').append("<a class='btn btn-default' role='button' href='"+url.replace("show", "chart")+"'>Pobierz</a>" );
 		//		$('#charts').append("<div class=\"checkbox\"><label><input id=\"error-bars-switch\" data-toggle=\"toggle\" type=\"checkbox\" data-on=\"Pokaż\" data-off=\"Ukryj\">Odchylenie standardowe</label></div><link href=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css\" rel=\"stylesheet\"><script src=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js\"></script>");
 				
@@ -60,6 +60,7 @@ function bar_chart(url){
     						});
 
 $('#charts').show('quick');
+
 })
 
 
@@ -186,6 +187,17 @@ function toggleErrorBars(){
 		$('.error-bar').css('display','inline');
 }
 
+function prepare(){
+    $('#charts').css('display','none');
 
+}
+
+function append_events(){
+
+}
+function remove(){
+  d3.select("#save").off();
+  $('#charts').children().remove();
+}
 }
 //});

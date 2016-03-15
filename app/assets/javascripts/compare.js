@@ -17,6 +17,7 @@ $('th[metric]').hover( handlerIn, handlerOut )
 $('th[metric]').on('click',
 	function(){ $('#charts').children().remove();
 	bar_chart($( this ).attr('data_url'));
+	$('#save').show('quick');
 	 });
 
 
