@@ -33,7 +33,7 @@ d3.select("#save").on("click", function(){
         .node().parentNode.innerHTML;
 
   //console.log(html);
-  var imgsrc = 'data:image/svg+xml;base64,'+ btoa(html);
+  var imgsrc = 'data:image/svg+xml;base64,'+ btoa(unescape(encodeURIComponent(html)));
 
   var canvas = document.querySelector("canvas"),
 	  context = canvas.getContext("2d");
