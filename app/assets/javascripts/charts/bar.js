@@ -8,7 +8,7 @@ $(window).on('load',
 		
 				width = width>512?512:width;
 				var height = width/2+180;
-				var margin = {top: 30, right: 30, bottom: 180, left: 40},
+				var margin = {top: 30, right: 30, bottom: 180, left: 50},
    				width = width - margin.left - margin.right,
     			height = height - margin.top - margin.bottom;
 
@@ -76,7 +76,23 @@ function draw(data,chart,title,x,y,xAxis,yAxis){
 
   chart.append("g")
       .attr("class", "y axis")
-      .call(yAxis);
+      .call(yAxis).selectAll('path')
+      .style("fill", "none")
+      .style("stroke","#000")
+      .style("shape-rendering", "crispEdges");
+      
+      chart.selectAll('line')
+      .style("fill", "none")
+      .style("stroke","#000")
+      .style("shape-rendering", "crispEdges");
+
+       chart.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x",0 - (height / 2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .text(title);
 
  var bar= chart.selectAll(".bar")
       .data(data)
