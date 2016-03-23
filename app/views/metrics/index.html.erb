@@ -10,7 +10,7 @@
     <% @metrics.each do |metric| %>
       <tr>
         <td><%= metric.name %></td>
-        <td> <%= link_to metric, remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon"  do%><span class="glyphicon glyphicon-remove" aria-hidden="true"  data-toggle="tooltip" data-placement="right" title="usuń"> <%end%></span></td>
+        <td> <%= link_to metric,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon"  do%><span class="glyphicon glyphicon-remove" aria-hidden="true"  data-toggle="tooltip" data-placement="right" title="usuń"> <%end%></span></td>
       </tr>
     <% end %>
   </tbody>

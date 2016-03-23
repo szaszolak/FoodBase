@@ -28,7 +28,7 @@ class MetricsController < ApplicationController
 
     respond_to do |format|
       if @metric.save
-        format.html { redirect_to @metric, success: 'Metric was successfully created.' }
+        format.html { redirect_to @metric, success: 'Metryka została pomyślnie utworzona.' }
         format.json { render :show, status: :created, location: @metric }
       else
         format.html { render :new }
@@ -42,7 +42,7 @@ class MetricsController < ApplicationController
   def update
     respond_to do |format|
       if @metric.update(metric_params)
-        format.html { redirect_to @metric, success: 'Metric was successfully updated.' }
+        format.html { redirect_to @metric, success: 'Metryka została pomyślnie zaktualizowana.' }
         format.json { render :show, status: :ok, location: @metric }
       else
         format.html { render :edit }
@@ -54,10 +54,16 @@ class MetricsController < ApplicationController
   # DELETE /metrics/1
   # DELETE /metrics/1.json
   def destroy
-    @metric.destroy
-    respond_to do |format|
-      format.html { redirect_to metrics_url, success: 'Metric was successfully destroyed.' }
-      format.json { head :no_content }
+    if @metric.destroy
+      respond_to do |format|
+        format.html { redirect_to metrics_url, success: 'Metryka została pomyślnie usunięta.' }
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to metrics_url, danger: 'Metryka nie została pomyślnie usunięta: '+@metric.errors.to_a.join(', ') }
+        format.json { head :no_content }
+      end
     end
   end
 
