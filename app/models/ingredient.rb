@@ -1,5 +1,7 @@
 class Ingredient < ActiveRecord::Base
   has_many :recipes
+  
+  validates_uniqueness_of :name
   validates :name, presence: true
     
   before_create do
@@ -13,7 +15,7 @@ class Ingredient < ActiveRecord::Base
   	unless recipes.any?
   	 	return true
   	else
-  		errors.add(:base,'Recipes are using this ingredient')
+  		errors.add(:base,'Istnieją receptury zawierające ten składnik.')
   		return false
   	end
   end

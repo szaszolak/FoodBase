@@ -13,7 +13,7 @@ class IngredientsController < ApplicationController
 
     respond_to do |format|
       if @ingredient.save
-        format.html { redirect_to @ingredient, success: 'Ingredient was successfully created.' }
+        format.html { redirect_to ingredients_url, success: 'Składnik został pomyślnie utworzony' }
         format.json { render :show, status: :created, location: @ingredient }
       else
         format.html { render :new }
@@ -27,10 +27,10 @@ class IngredientsController < ApplicationController
     @ingredient = Ingredient.find(params[:id])
     respond_to do |format|
       if @ingredient.destroy
-        format.html { redirect_to @ingredient, success: 'Ingredient was successfully destroyed.' }
+        format.html { redirect_to ingredients_url, success: 'Składnik został pomyślnie usunięty.' }
         format.json { render :show, status: :created, location: @ingredient }
       else
-        format.html { render :index }
+        format.html {  redirect_to ingredients_url, danger: 'Składnik  nie został usunięty: '+@ingredient.errors.to_a.join(', ') }
         format.json { render json: @ingredient.errors, status: :unprocessable_entity }
       end
     end
