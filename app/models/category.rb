@@ -2,6 +2,7 @@ class Category < ActiveRecord::Base
 	has_many :products
 
 	validates :name, presence: true
+	validates_uniqueness_of :name
 
 	before_destroy :ensure_not_referenced_by_any_product
 	
@@ -15,7 +16,7 @@ class Category < ActiveRecord::Base
 		if products.empty?
 			return true
 		else
-			errors.add(:base, 'Products present')
+			errors.add(:base, 'Istnieją badania dotyczące tego produktu')
 			return false
 		end
 	end 

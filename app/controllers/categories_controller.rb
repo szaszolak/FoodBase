@@ -29,7 +29,7 @@ class CategoriesController < ApplicationController
 
     respond_to do |format|
       if @category.save
-        format.html { redirect_to @category, success: 'Category was successfully created.' }
+        format.html { redirect_to @category, success: 'Produkt został pomyślnie utworzony' }
         format.json { render :show, status: :created, location: @category }
         format.js
       else
@@ -44,7 +44,7 @@ class CategoriesController < ApplicationController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to @category, success: 'Category was successfully updated.' }
+        format.html { redirect_to @category, success: 'Produkt został pomyślnie zakualizowany' }
         format.json { render :show, status: :ok, location: @category }
       else
         format.html { render :edit }
@@ -57,12 +57,19 @@ class CategoriesController < ApplicationController
   # DELETE /categories/1.json
   def destroy
 
-    @category.destroy
+    if @category.destroy
     @categories = Category.all
-    respond_to do |format|
-      format.html { redirect_to categories_url, success: 'Category was successfully destroyed.' }
-      format.js
-      format.json { head :no_content }
+      respond_to do |format|
+        format.html { redirect_to categories_url, success: 'Produkt został pomyślnie usunięty' }
+        format.js
+        format.json { head :no_content }
+      end
+    else
+      respond_to do |format|
+        format.html { redirect_to categories_url, danger: 'Produkt nie mógł zostać usunięty: '+@category.errors.to_a.join(", ") }
+        format.js
+        format.json { head :no_content }
+      end
     end
   end
 
