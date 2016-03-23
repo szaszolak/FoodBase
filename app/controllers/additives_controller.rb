@@ -54,11 +54,17 @@ class AdditivesController < ApplicationController
   # DELETE /additives/1
   # DELETE /additives/1.json
   def destroy
-    @additive.destroy
-    respond_to do |format|
-      format.html { redirect_to additives_url, success: 'Additive was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    if @additive.destroy
+	    respond_to do |format|
+	      format.html { redirect_to additives_url, success: 'Additive was successfully destroyed.' }
+	      format.json { head :no_content }
+	    end
+	else
+		  respond_to do |format|
+	      format.html { redirect_to additives_url, danger: 'Nie można usunąć dodatku: '+@additive.errors.to_a.join(", ") }
+	      format.json { head :no_content }
+	    end
+	end
   end
 
   private
