@@ -8,7 +8,7 @@
     </div>
 	<ul class="nav navbar-nav">
   	    <li><%= link_to ".xlsx", product_path(@product,format: "xlsx") %></li>
-         <li><%= link_to ".pdf", product_path(@product,format: "pdf"), id: "pdf"%></li>
+         <li><%= link_to ".pdf", product_path(@product,format: "pdf"), id: "pdf",:target => "_blank"%></li>
 
       </ul>
     
