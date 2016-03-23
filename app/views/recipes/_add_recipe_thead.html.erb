@@ -3,7 +3,7 @@
   <%= form_for [@product,@recipe] do |f| %>
   <th>
    <div class='field'>
-    <%= collection_select :recipe, :ingredient_id, Ingredient.all, :id,:name,promt: false %>
+    <%= collection_select :recipe, :ingredient_id, Ingredient.all, :id,:name,prompt: "Wybierz" %>
   </div>
   </th>
   <th>
