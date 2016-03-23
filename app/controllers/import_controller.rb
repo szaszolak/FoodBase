@@ -56,6 +56,7 @@ class ImportController < ApplicationController
 		@product.name =sheet.row(3)[0]
 		@product.description =sheet.row(3)[1]
 		@product.article_url =sheet.row(3)[2]
+		@product.save
 		(7..sheet.count).each do |i|
 			definition = @product.experiment_definitions.build
 			definition.metric_id = Metric.find_by_name(sheet.row(i)[0]).id
@@ -63,7 +64,8 @@ class ImportController < ApplicationController
 			definition.repetitions = sheet.row(i)[2]
 			definition.save
 		end	
-		@product.save
+
+		
 	end
 	
 	def import_recipe_xls(sheet)
@@ -86,12 +88,13 @@ class ImportController < ApplicationController
 	end
 
 	def import_samples_xls(sheet,metric)
-	
+
 		sample_definition_rows_count = 4;
 		
 		definition = @product.experiment_definitions.joins(:metric).where("metrics.name=?",metric).first
 		samples_count = sheet.row(2).count
 		(1..samples_count-1).each do |i|
+
 		analysys_data_start = 4;
 			@additive = nil
 	
@@ -107,7 +110,7 @@ class ImportController < ApplicationController
 					@sample.temperature = sheet.row(4)[i]
 					@sample.save
 				end
-		
+
  				 #mały hack wynikający ze struktury danych zwaracanych przez roo => zwraca tablicę tablic zawierających poszczególne wiersze.
   				(1..definition.series).each do |serie|
 					import_sensory_analysis(sheet.column(i+1)[analysys_data_start,definition.repetitions],serie,definition) #kolumny numerowane od 1 a nie od zera, viva la spójne indeksowanie!

@@ -10,7 +10,7 @@
     <% @additives.each do |additive| %>
       <tr>
         <td><%= additive.name %></td>
-        <td> <%= link_to additive, remote:true ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon"  do%><span class="glyphicon glyphicon-remove" aria-hidden="true"  data-toggle="tooltip" data-placement="right" title="usuń"> <%end%></span></td>
+        <td> <%= link_to additive ,method: :delete ,data: { confirm: 'Are you sure?' }, class: "glyphicon"  do%><span class="glyphicon glyphicon-remove" aria-hidden="true"  data-toggle="tooltip" data-placement="right" title="usuń"> <%end%></span></td>
       </tr>
     <% end %>
   </tbody>

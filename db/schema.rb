@@ -52,18 +52,6 @@ ActiveRecord::Schema.define(version: 20160209133031) do
   add_index "experiment_definitions", ["metric_id"], name: "index_experiment_definitions_on_metric_id"
   add_index "experiment_definitions", ["product_id"], name: "index_experiment_definitions_on_product_id"
 
-  create_table "experiment_defnitions", force: :cascade do |t|
-    t.integer  "product_id"
-    t.integer  "metric_id"
-    t.integer  "series"
-    t.integer  "repetitions"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
-  add_index "experiment_defnitions", ["metric_id"], name: "index_experiment_defnitions_on_metric_id"
-  add_index "experiment_defnitions", ["product_id"], name: "index_experiment_defnitions_on_product_id"
-
   create_table "ingredients", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at", null: false
@@ -83,12 +71,12 @@ ActiveRecord::Schema.define(version: 20160209133031) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.string   "name"
     t.text     "description"
     t.string   "article_url"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.integer  "category_id"
+    t.string   "name"
   end
 
   create_table "recipes", force: :cascade do |t|

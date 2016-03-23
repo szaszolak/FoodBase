@@ -41,3 +41,4 @@ function product_reset(){
 	$('input[type="checkbox"]').off();
 	
 }
+

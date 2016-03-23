@@ -5,7 +5,7 @@ $(window).on('load',
 				var width = $('#content').width();
 				
 				$('#content').append("<div class=\"checkbox\"><label><input id=\"error-bars-switch\" data-toggle=\"toggle\" type=\"checkbox\" data-on=\"Pokaż\" data-off=\"Ukryj\">Odchylenie standardowe</label></div><link href=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/css/bootstrap-toggle.min.css\" rel=\"stylesheet\"><script src=\"https://gitcdn.github.io/bootstrap-toggle/2.2.0/js/bootstrap-toggle.min.js\"></script>");
-				
+		
 				width = width>512?512:width;
 				var height = width/2;
 				var margin = {top: 30, right: 30, bottom: 30, left: 40},
@@ -19,9 +19,14 @@ $(window).on('load',
 					function(error,data){
 						var i = 0;
 						_.each(data.metrics,function(metric){
-						
+            
+             //
 							var div = '<svg class="chart chart-'+i+'"></svg>'
 							$('#content').append(div);
+               $('#content').append('<button id="save-'+i+'" class="btn btn-default" type="button" >Pobierz jako *.png</button>');
+             $('#content').append('<canvas id="canv-'+i+'"style="display:none" height="500" width="960"></canvas>');
+
+             d3.select("#save-"+i).on("click", button_handler);
 
 							var chart = d3.select(".chart-"+i)
 						   		 .attr("width", width + margin.left + margin.right)
@@ -141,3 +146,32 @@ function toggleErrorBars(){
 
 
 });
+
+function button_handler(){
+
+              var html = d3.select("svg.chart-"+this.id.split('-')[1])
+                    .attr("version", 1.1)
+                    .attr("xmlns", "http://www.w3.org/2000/svg")
+                    .node().parentNode.innerHTML;
+
+              //console.log(html);
+              var imgsrc = 'data:image/svg+xml;base64,'+ btoa(unescape(encodeURIComponent(html)));
+
+              var canvas = document.querySelector("#canv-"+this.id.split('-')[1]),
+                context = canvas.getContext("2d");
+
+              var image = new Image;
+           image.addEventListener('load', function() {
+                context.drawImage(image, 0, 0);
+
+                var canvasdata = canvas.toDataURL("image/png");
+
+                var a = document.createElement("a");
+                a.download = "sample.png";
+                a.href = canvasdata;
+                document.body.appendChild(a);
+                a.click();
+                context.clearRect(0, 0, canvas.width, canvas.height);
+              });
+                   image.src = imgsrc;
+              }
