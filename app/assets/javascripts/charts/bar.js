@@ -22,9 +22,10 @@ $(window).on('load',
             
              //
 							var div = '<svg class="chart chart-'+i+'"></svg>'
+              $('#content').append('<button id="save-'+i+'" class="btn btn-default" type="button" >Pobierz jako *.png</button>');
+              $('#content').append('<canvas id="canv-'+i+'"style="display:none" height="500" width="960"></canvas>');
 							$('#content').append(div);
-               $('#content').append('<button id="save-'+i+'" class="btn btn-default" type="button" >Pobierz jako *.png</button>');
-             $('#content').append('<canvas id="canv-'+i+'"style="display:none" height="500" width="960"></canvas>');
+            
 
              d3.select("#save-"+i).on("click", button_handler);
 
@@ -93,7 +94,7 @@ function draw(data,chart,title,x,y,xAxis,yAxis){
         .attr("dy", "1em")
         .style("text-anchor", "middle")
         .text(title);
-
+  var c20 = d3.scale.category20();
  var bar= chart.selectAll(".bar")
       .data(data)
     .enter().append("g")
@@ -102,7 +103,8 @@ function draw(data,chart,title,x,y,xAxis,yAxis){
       .attr("class", "bar")
       .attr("y", function(d) { return y(d.value); })
       .attr("height", function(d) { return height - y(d.value); })
-      .attr("width", x.rangeBand());
+      .attr("width", x.rangeBand())
+         .style('fill', 'steelblue');
 
 var lineFunction = d3.svg.line()
                         .x(function(ele) { return ele.x; })
@@ -141,6 +143,7 @@ var lineFunction = d3.svg.line()
       .attr("dy", ".75em")
       .attr("fill","white")
       .attr("font-weight","bold")
+      .attr("text-anchor", "middle")  
       .text(function(d) {
        return d.value.toFixed(2);
         });
