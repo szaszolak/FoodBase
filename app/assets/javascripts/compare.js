@@ -30,7 +30,7 @@ d3.select("#save").on("click", function(){
   var html = d3.select("svg")
         .attr("version", 1.1)
         .attr("xmlns", "http://www.w3.org/2000/svg")
-        .node().parentNode.innerHTML;
+        .node().outerHTML;
 
   //console.log(html);
   var imgsrc = 'data:image/svg+xml;base64,'+ btoa(unescape(encodeURIComponent(html)));

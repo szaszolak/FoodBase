@@ -173,7 +173,7 @@ function button_handler(){
               var html = d3.select("svg.chart-"+this.id.split('-')[1])
                     .attr("version", 1.1)
                     .attr("xmlns", "http://www.w3.org/2000/svg")
-                    .node().parentNode.innerHTML;
+                    .node().outerHTML;
 
               //console.log(html);
               var imgsrc = 'data:image/svg+xml;base64,'+ btoa(unescape(encodeURIComponent(html)));
@@ -194,5 +194,6 @@ function button_handler(){
                 a.click();
                 context.clearRect(0, 0, canvas.width, canvas.height);
               });
-                   image.src = imgsrc;
+                image.src = imgsrc;
+            
               }
