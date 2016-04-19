@@ -6,6 +6,9 @@ class Sample < ActiveRecord::Base
 	has_many :sensory_analyses, dependent: :destroy
 	has_many :metrics, through: :sensory_analyses
 
+	validates_numercality_of :amount, greater_than: 0
+	validates_numercality_of :temperature, greater_than: 0
+
 	def get_average_metric(metric_id)
 		get_repetitions(metric_id)
 		repetitions.map {|s| s.value}.sum()/repetitions.size

@@ -552,20 +552,29 @@
 	},
 	"expanded_folders":
 	[
-		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2"
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/stylesheets",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/compare",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/products"
 	],
 	"file_history":
 	[
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/products/show.html.erb",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/javascripts/charts/bar.js",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/config/database.yml",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/training/config/database.yml",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/stylesheets/products.scss",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/javascripts/charts/bar_compare.js",
+		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/javascripts/compare.js",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/controllers/additives_controller.rb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/additives/index.html.erb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/models/additive.rb",
-		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/products/show.html.erb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/metrics/index.html.erb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/controllers/metrics_controller.rb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/recipes/_add_recipe_thead.html.erb",
-		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/javascripts/charts/bar_compare.js",
-		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/stylesheets/products.scss",
-		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/javascripts/charts/bar.js",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/controllers/pages_controller.rb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/ingredients/_form.html.erb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/ingredients/_ingredient.html.erb",
@@ -580,10 +589,8 @@
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/models/experiment_definition.rb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/categories/index.html.erb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/controllers/sensory_analyses_controller.rb",
-		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/config/database.yml",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/controllers/import_controller.rb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/javascripts/products.js",
-		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/assets/javascripts/compare.js",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/compare/index.html.erb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/controllers/products_controller.rb",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/products/show.xlsx.axlsx",
@@ -682,8 +689,7 @@
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/products/show.pdf.prawn",
 		"/F/Bitnami/rubystack-2.0.0-39/projects/foodbase2/app/views/products/_index_side_right.html.erb",
 		"/F/ruby/_consumer/log/development.log",
-		"/F/ruby/_consumer/rabbitEater.rb",
-		"/F/ruby/_consumer/Gemfile"
+		"/F/ruby/_consumer/rabbitEater.rb"
 	],
 	"find":
 	{
@@ -880,7 +886,7 @@
 	"show_open_files": true,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 188.0,
+	"side_bar_width": 362.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
