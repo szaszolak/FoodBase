@@ -4,5 +4,5 @@ class Recipe < ActiveRecord::Base
 
   validates :product_id, :ingredient_id , presence: true
   validates_uniqueness_of :ingredient_id, :scope => :product_id
-  validates_numericality_of :amout, greater_than: 0
+  validates_numericality_of :amount, greater_than: 0
 end
