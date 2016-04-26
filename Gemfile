@@ -61,6 +61,20 @@ group :development, :test do
 
   # Access an IRB console on exception pages or by using <%= console %> in views
   gem 'web-console', '~> 2.0'
+ #to generate seed data
+  gem 'faker'
+  #RSpec for test
+  gem 'rspec-rails'
+  #FactoryGirl for test mocks
+  gem 'factory_girl_rails' 
+end
+group :test do
+  
+  gem 'capybara'
+  gem 'guard-rspec'
+  gem 'launchy'
+  gem 'database_cleaner' 
+  gem 'selenium-webdriver'
 end
 
 group :production do
